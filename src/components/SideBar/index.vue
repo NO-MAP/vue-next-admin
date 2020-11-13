@@ -1,5 +1,7 @@
 <template>
-  <div class="sidebar"></div>
+  <div class="sidebar">
+    <div class="side-title">vue-next-admin</div>
+  </div>
 </template>
 
 <script>
@@ -11,7 +13,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.sidebar{
+.sidebar {
   overflow: hidden;
+  .side-title {
+    height: 50px;
+    background-color: skyblue;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
 }
 </style>>

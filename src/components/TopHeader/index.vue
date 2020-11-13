@@ -1,6 +1,6 @@
 <template>
   <div class="top-header">
-    <button @click="toggleSidebar">test</button>
+    <el-button @click="toggleSidebar">test</el-button>
   </div>
 </template>
 

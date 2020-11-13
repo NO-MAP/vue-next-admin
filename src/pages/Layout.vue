@@ -1,8 +1,8 @@
 <template>
   <div class="layout" :class="sideBarState">
-    <side-bar />
+    <SideBar />
     <div class="layout-content">
-      <top-header />
+      <TopHeader />
       <tag-view />
       <div class="main-container">
         <router-view></router-view>
@@ -69,11 +69,11 @@ export default defineComponent({
 
   &.closed {
     .sidebar {
-      width: 40px;
+      width: 50px;
     }
 
     .layout-content {
-      width: calc(100% - 40px);
+      width: calc(100% - 50px);
     }
   }
 }
