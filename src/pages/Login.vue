@@ -2,12 +2,12 @@
   <div class="login-wrapper" ref="wra" :style="wrastyle">
     <div class="login-wrapper-1" :style="wra1style">
       <div class="login-wrapper-2" :style="wra2style">
+        <LoginEarth class="earth" @mouse-move="mouseMoveHandle" />
         <header>
           <p>{{ config.title }}</p>
-          <p>TS application system</p>
+          <p>blog admin</p>
         </header>
         <div class="content">
-          <LoginEarth class="earth" @mouse-move="mouseMoveHandle" />
           <div class="login-form">
             <p class="login-welcome">欢迎进入{{ config.title }} 请登录!</p>
             <el-form
@@ -23,18 +23,21 @@
                   v-model.trim="form.username"
                   class="login-input"
                 >
-                  <!-- <i slot="prefix" class="el-input__icon login_icon">&#xe612;</i> -->
+                  <template v-slot:prefix>
+                    <i class="el-icon-user">&#xe612;</i>
+                  </template>
                 </el-input>
               </el-form-item>
-              <el-form-item prop="password">
+              <el-form-item @keyup.enter="login" prop="password">
                 <el-input
                   show-password
                   v-model.trim="form.password"
-                  @keyup.enter="login"
                   class="login-input"
                   type="password"
                 >
-                  <!-- <i slot="prefix" class="el-input__icon login_icon">&#xe60c;</i> -->
+                  <template v-slot:prefix>
+                    <i class="el-icon-user">&#xe612;</i>
+                  </template>
                 </el-input>
               </el-form-item>
               <el-button
@@ -94,7 +97,6 @@ export default defineComponent({
       });
     };
     const appSize = store.state.app.appSize;
-    console.log(appSize)
 
     const mouseMoveHandle = (position) => {
       ePosition.x = position.x;
@@ -180,6 +182,8 @@ export default defineComponent({
   header {
     width: 100%;
     padding-top: 28px;
+    position: absolute;
+    top: 0px;
     /*background: pink;*/
 
     p {
@@ -222,6 +226,12 @@ export default defineComponent({
       .login-input {
         &:first-child {
           height: 50px;
+        }
+        .el-input__prefix{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 50px;
         }
 
         .el-input__inner {

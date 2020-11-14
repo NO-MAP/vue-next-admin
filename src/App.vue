@@ -21,7 +21,6 @@ export default defineComponent({
         w: boxrect.width,
         h: boxrect.height,
       };
-      console.log(size);
       store.commit("app/SET_APP_SIZE", size);
     };
     setSize();

@@ -1,5 +1,5 @@
 <template>
-  <div class="earth-wrapper" id="earthDom">
+  <div class="earth-wrapper" id="earthDom" v-dragable="options">
     <div class="drag-trigger">
       <i class="el-icon-rank"></i>
     </div>
