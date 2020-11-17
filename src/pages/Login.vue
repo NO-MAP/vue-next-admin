@@ -2,7 +2,7 @@
   <div class="login-wrapper" ref="wra" :style="wrastyle">
     <div class="login-wrapper-1" :style="wra1style">
       <div class="login-wrapper-2" :style="wra2style">
-        <LoginEarth class="earth" @mouse-move="mouseMoveHandle" />
+        <LoginEarth class="earth" @earth-mouse-move="mouseMoveHandle" />
         <header>
           <p>{{ config.title }}</p>
           <p>blog admin</p>
@@ -28,7 +28,7 @@
                   </template>
                 </el-input>
               </el-form-item>
-              <el-form-item @keyup.enter="login" prop="password">
+              <el-form-item @keyup.enter="loginHandle" prop="password">
                 <el-input
                   show-password
                   v-model.trim="form.password"
@@ -36,22 +36,22 @@
                   type="password"
                 >
                   <template v-slot:prefix>
-                    <i class="el-icon-user">&#xe612;</i>
+                    <i class="el-icon-lock">&#xe612;</i>
                   </template>
                 </el-input>
               </el-form-item>
               <el-button
                 type="default"
-                :loading="btnLoading"
+                :loading="loginData.loading"
                 class="login-btn"
                 style="width: 100%"
-                @click="login"
+                @click="loginHandle"
                 >登 录</el-button
               >
             </el-form>
-          </div>
-          <div class="time">
-            <!-- <Time :size="[24, 30]"></Time> -->
+            <div class="tips">
+              <a href="#/register">没有账号？前往注册</a>
+            </div>
           </div>
         </div>
       </div>
@@ -62,18 +62,20 @@
 <script>
 import config from "@/config";
 
-// import Time from "@/components/Time";
 import LoginEarth from "@/components/LoginEarth";
 import { computed, defineComponent, reactive, ref } from "vue";
 import { useStore } from "vuex";
+import { useSWR, SWR } from "@/hooks/useSWR";
+import { login } from "@/api/user";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "Login",
   components: { LoginEarth },
   setup() {
-    const store = useStore();
+    const { getters, commit } = useStore();
+    const router = useRouter();
     const ref_form = ref(null);
-    const btnLoading = ref(false);
     const ePosition = reactive({
       x: 0,
       y: 0,
@@ -82,21 +84,34 @@ export default defineComponent({
       username: "",
       password: "",
     });
+
     const rules = {
       username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
       password: [{ required: true, message: "请输入密码", trigger: "blur" }],
     };
 
-    const login = () => {
-      ref_form.value.validate((valid) => {
+    const loginData = SWR();
+    const loginHandle = () => {
+      ref_form.value.validate(async (valid) => {
         if (valid) {
-          btnLoading.value = true;
+          await useSWR(
+            login({
+              username: form.username,
+              password: form.password,
+            }),
+            loginData
+          );
+          const { result } = loginData;
+          commit("user/SET_USERINFO", result);
+
+          router.push({
+            name: "Home",
+          });
         } else {
           console.log("验证失败");
         }
       });
     };
-    const appSize = store.state.app.appSize;
 
     const mouseMoveHandle = (position) => {
       ePosition.x = position.x;
@@ -104,6 +119,7 @@ export default defineComponent({
     };
 
     const wrastyle = computed(() => {
+      const appSize = getters["app/appSize"];
       const left = (ePosition.x / (appSize.w / 10)).toFixed();
       const right = (ePosition.y / (appSize.h / 10)).toFixed();
       return {
@@ -112,6 +128,7 @@ export default defineComponent({
     });
 
     const wra1style = computed(() => {
+      const appSize = getters["app/appSize"];
       const left = (ePosition.x / (appSize.w / 20)).toFixed();
       const right = (ePosition.y / (appSize.h / 20)).toFixed();
       return {
@@ -120,6 +137,7 @@ export default defineComponent({
     });
 
     const wra2style = computed(() => {
+      const appSize = getters["app/appSize"];
       const left = (ePosition.x / (appSize.w / 40)).toFixed();
       const right = (ePosition.y / (appSize.h / 40)).toFixed();
       return {
@@ -131,8 +149,8 @@ export default defineComponent({
       config,
       form,
       rules,
-      login,
-      btnLoading,
+      loginData,
+      loginHandle,
       mouseMoveHandle,
       wrastyle,
       wra1style,
@@ -175,6 +193,7 @@ export default defineComponent({
   }
 
   .content {
+    padding-top: 135px;
     height: calc(100% - 135px);
     width: 100%;
   }
@@ -227,7 +246,7 @@ export default defineComponent({
         &:first-child {
           height: 50px;
         }
-        .el-input__prefix{
+        .el-input__prefix {
           display: flex;
           align-items: center;
           justify-content: center;
@@ -260,15 +279,18 @@ export default defineComponent({
     .el-form-item {
       margin-bottom: 26px;
     }
-  }
-
-  .time {
-    width: 220px;
-    height: 80px;
-    position: absolute;
-    bottom: 93px;
-    left: 80px;
-    color: white;
+    .tips {
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px 5px;
+      a {
+        font-size: 12px;
+        color: rgb(177, 177, 177);
+        &:hover {
+          color: white;
+        }
+      }
+    }
   }
 }
 </style>

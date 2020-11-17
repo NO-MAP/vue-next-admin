@@ -6,22 +6,22 @@
 
 <script>
 import { _debounce } from "@/utils/tool";
-import config from "@/config";
 import { defineComponent } from "vue";
 import { useStore } from "vuex";
+import config from "./config";
 
 export default defineComponent({
   name: "app",
   setup() {
     document.title = config.title;
-    const store = useStore();
+    const { commit } = useStore();
     const setSize = () => {
       const boxrect = document.getElementById("app").getBoundingClientRect();
       const size = {
         w: boxrect.width,
         h: boxrect.height,
       };
-      store.commit("app/SET_APP_SIZE", size);
+      commit("app/SET_APP_SIZE", size);
     };
     setSize();
     const resizeHandle = () => {

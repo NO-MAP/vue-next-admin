@@ -1,30 +1,27 @@
-import { ref } from 'vue'
+import { reactive } from 'vue'
 
 /**
  * 
- * @param {api方法} f 
+ * @param {Function} f 
  */
-function useSwr(f) {
-  const result = ref(null)
-  const loading = ref(true)
-  const loaded = ref(false)
-  const error = ref(null)
-
-  f.then((res) => {
-    loading.value = false
-    loaded.value = true
-    result.value = res.data
-  }).catch(e => {
-    error.value = e
-    loading.value = false
-  })
-  return {
-    result,
-    loading,
-    loaded,
-    error
+export const useSWR = async (f, SWR) => {
+  if (f && SWR) {
+    SWR.loading = true;
+    try {
+      SWR.result = await f;
+    } catch (error) {
+      SWR.error = error;
+    } finally {
+      SWR.loading = false;
+    }
+    return SWR
   }
-
 }
 
-export default useSwr
+export const SWR = () => {
+  return reactive({
+    loading: false,
+    result: null,
+    error: null
+  })
+}

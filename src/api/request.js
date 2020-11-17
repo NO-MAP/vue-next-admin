@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { Message } from 'element-ui'
 import { getToken } from '@/utils/auth'
+import { Message } from "element-plus/lib/message";
 import NProgress from "nprogress/nprogress";
-import config from '@/config';
+import config from "@/config"
 
 
 const request = axios.create({

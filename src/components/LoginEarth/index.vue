@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent, onUnmounted, ref } from "vue";
 
 export default defineComponent({
   name: "EarthWrapper",
@@ -19,7 +19,9 @@ export default defineComponent({
       body: ".earth-wrapper",
     };
     const updateRotate = (e) => {
-      const oriRect = document.getElementById("earthDom").getBoundingClientRect();
+      const oriRect = document
+        .getElementById("earthDom")
+        .getBoundingClientRect();
       const rect = {
         x: oriRect.x + 250,
         y: oriRect.y + 250,
@@ -28,7 +30,7 @@ export default defineComponent({
         x: e.pageX,
         y: e.pageY,
       };
-      ctx.emit("mouse-move", ePosition);
+      ctx.emit("earth-mouse-move", ePosition);
 
       const x = Math.abs(rect.x - ePosition.x);
       const y = Math.abs(rect.y - ePosition.y);
@@ -53,6 +55,10 @@ export default defineComponent({
       return {
         transform: `rotate(${angle.value}deg)`,
       };
+    });
+
+    onUnmounted(() => {
+      document.removeEventListener("mousemove", updateRotate);
     });
 
     return {
