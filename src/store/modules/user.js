@@ -1,4 +1,5 @@
-import { removeToken, setToken } from "@/utils/auth";
+import { refreshToken } from "@/api/user";
+import { removeToken, setReToken, setToken, removeReToken, getToken } from "@/utils/auth";
 import { getStore, removeStore, setStore } from "@/utils/localStorage";
 
 const state = {
@@ -11,20 +12,27 @@ const getters = {
 
 const mutations = {
   SET_USERINFO: (state, data) => {
-    state.userInfo = data;
-    const { usename, token } = data;
-    setToken(token);
+    const { token, userInfo } = data;
+    state.userInfo = userInfo;
+    setToken(token.access_token);
+    setReToken(token.refresh_token)
     setStore({
       name: 'userInfo',
-      content: {
-        usename
-      }
+      content: userInfo
     })
   },
   CLEAR_USERINFO: (state) => {
     state.userInfo = {};
     removeToken()
+    removeReToken()
     removeStore({ name: 'userInfo' })
+  }
+}
+
+const actions = {
+  refreshToken: async () => {
+    const data = await refreshToken(getToken());
+    return data;
   }
 }
 
@@ -32,7 +40,8 @@ const user = {
   namespaced: true,
   state,
   getters,
-  mutations
+  mutations,
+  actions
 }
 
 export default user

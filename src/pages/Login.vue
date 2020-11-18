@@ -102,11 +102,12 @@ export default defineComponent({
             loginData
           );
           const { result } = loginData;
-          commit("user/SET_USERINFO", result);
-
-          router.push({
-            name: "Home",
-          });
+          if (result) {
+            commit("user/SET_USERINFO", result);
+            router.push({
+              name: "Home",
+            });
+          }
         } else {
           console.log("验证失败");
         }

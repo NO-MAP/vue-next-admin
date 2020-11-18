@@ -1,4 +1,4 @@
-const baseUrl = "";
+const baseUrl = "http://10.180.198.101:8010";
 
 const config = {
   title: "vue-next-admin",
