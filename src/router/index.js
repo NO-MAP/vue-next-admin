@@ -8,7 +8,7 @@ import Home from '@/views/Home.vue';
 
 const defaultRouters = [
   {
-    path: '/login',
+    path: '/Login',
     name: 'Login',
     component: Login
   }, {
@@ -21,11 +21,11 @@ const defaultRouters = [
     component: Forbidden
   }, {
     path: '/',
-    redirect: '/home',
+    redirect: '/Home',
     component: Layout,
     children: [
       {
-        path: 'home',
+        path: '/Home',
         name: 'Home',
         component: Home
       }

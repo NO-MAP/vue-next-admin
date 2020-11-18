@@ -23,7 +23,7 @@ export default defineComponent({
     const testData = SWR();
     const test = async () => {
       await useSWR(hello(), testData);
-      console.log(testData);
+      console.log(testData.result);
     };
 
     return {

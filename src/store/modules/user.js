@@ -1,13 +1,16 @@
-import { refreshToken } from "@/api/user";
-import { removeToken, setReToken, setToken, removeReToken, getToken } from "@/utils/auth";
+import { getRouters, refreshToken } from "@/api/user";
+import router from "@/router";
+import { removeToken, setReToken, setToken, removeReToken, getReToken } from "@/utils/auth";
 import { getStore, removeStore, setStore } from "@/utils/localStorage";
 
 const state = {
   userInfo: getStore({ name: 'userInfo' }) || {},
+  navs: getStore({ name: "navs" }) || [],
 }
 
 const getters = {
-  userInfo: state => state.userInfo
+  userInfo: state => state.userInfo,
+  navs: state => state.navs
 }
 
 const mutations = {
@@ -26,14 +29,27 @@ const mutations = {
     removeToken()
     removeReToken()
     removeStore({ name: 'userInfo' })
+  },
+  SET_NAVS: (state, data) => {
+    state.navs = data;
+    setStore({
+      name: 'navs',
+      content: data
+    })
   }
 }
 
 const actions = {
   refreshToken: async () => {
-    const data = await refreshToken(getToken());
-    console.log("refreshToken", data)
+    const data = await refreshToken(getReToken());
+    setToken(data.access_token);
+    setReToken(data.refresh_token)
     return data;
+  },
+  generateRouters: async () => {
+    const data = await getRouters();
+    console.log(data)
+    console.log(router)
   }
 }
 

@@ -2,22 +2,20 @@ import axios from 'axios'
 import { getToken } from '@/utils/auth'
 import { Message } from "element-plus/lib/message";
 import NProgress from "nprogress/nprogress";
-import config from "@/config"
 import store from "@/store"
 
 const request = axios.create({
-  baseURL: config.baseUrl,
+  baseURL: "",
   timeout: 30000
 })
 
 request.interceptors.request.use(
   config => {
     NProgress.start();
-
-    if (getToken()) {
+    const url = config.url;
+    if (getToken() && url.indexOf('refreshToken') == -1) {
       config.headers['Authorization'] = `Bearer ${getToken()}`;
     }
-    config.headers['Content-Type'] = 'application/json;charset=UTF-8';
     return config
   },
   error => {
@@ -59,7 +57,6 @@ request.interceptors.response.use(
     if (code === 401) {
       // 鉴权失败
       const res = await refreshToken(config)
-      console.log("重新请求 结果", res)
       return res;
     } else {
       Message({
@@ -79,7 +76,7 @@ async function refreshToken(config) {
   config.headers['Authorization'] = `Bearer ${token}`
 
   const res = await axios.request(config)
-  return res
+  return res.data.result
 }
 
 export default request
