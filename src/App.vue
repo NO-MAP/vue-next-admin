@@ -8,12 +8,10 @@
 import { _debounce } from "@/utils/tool";
 import { defineComponent } from "vue";
 import { useStore } from "vuex";
-import config from "./config";
 
 export default defineComponent({
   name: "app",
   setup() {
-    document.title = config.title;
     const { commit } = useStore();
     const setSize = () => {
       const boxrect = document.getElementById("app").getBoundingClientRect();

@@ -23,7 +23,7 @@
                   v-model.trim="form.username"
                   class="login-input"
                 >
-                  <template v-slot:prefix>
+                  <template #prefix>
                     <i class="el-icon-user">&#xe612;</i>
                   </template>
                 </el-input>
@@ -35,7 +35,7 @@
                   class="login-input"
                   type="password"
                 >
-                  <template v-slot:prefix>
+                  <template #prefix>
                     <i class="el-icon-lock">&#xe612;</i>
                   </template>
                 </el-input>

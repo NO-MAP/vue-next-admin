@@ -16,11 +16,11 @@ export const refreshToken = (token) => request({
 })
 
 export const getRouters = () => {
-  setTimeout(() => {
-    return new Promise(resolve => {
+  return new Promise(resolve => {
+    setTimeout(() => {
       resolve(routers)
-    })
-  }, 1500);
+    }, 1500);
+  })
 }
 
 export const hello = () => request({

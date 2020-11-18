@@ -5,12 +5,15 @@ import { getStore, removeStore, setStore } from "@/utils/localStorage";
 
 const state = {
   userInfo: getStore({ name: 'userInfo' }) || {},
-  navs: getStore({ name: "navs" }) || [],
+  navRoutes: [],
+  navLoading: true,
 }
 
 const getters = {
   userInfo: state => state.userInfo,
-  navs: state => state.navs
+  roleInfo: state => state.userInfo.sysRoleInfo,
+  navRoutes: state => state.navRoutes,
+  navLoading: state => state.navLoading
 }
 
 const mutations = {
@@ -31,11 +34,10 @@ const mutations = {
     removeStore({ name: 'userInfo' })
   },
   SET_NAVS: (state, data) => {
-    state.navs = data;
-    setStore({
-      name: 'navs',
-      content: data
-    })
+    state.navRoutes = data;
+  },
+  NAV_LOADED: (state) => {
+    state.navLoading = false;
   }
 }
 
@@ -46,9 +48,10 @@ const actions = {
     setReToken(data.refresh_token)
     return data;
   },
-  generateRouters: async () => {
+  generateRouters: async ({ commit }) => {
     const data = await getRouters();
-    console.log(data)
+    commit("NAV_LOADED")
+    commit("SET_NAVS", data)
     console.log(router)
   }
 }

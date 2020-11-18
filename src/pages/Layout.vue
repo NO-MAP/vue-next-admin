@@ -1,9 +1,9 @@
 <template>
-  <div class="layout" :class="sideBarState">
+  <div class="layout" v-loading="layoutLoading" :class="sideBarState">
     <SideBar />
     <div class="layout-content">
       <TopHeader />
-      <tag-view />
+      <TagView />
       <div class="main-container">
         <router-view></router-view>
       </div>
@@ -24,13 +24,17 @@ export default defineComponent({
   name: "Layout",
   components: { SideBar, TopHeader, TagView },
   setup() {
-    const store = useStore();
+    const { getters, dispatch } = useStore();
     const sideBarState = computed(() =>
-      store.state.app.sidebar.opened ? "open" : "closed"
+      getters["app/sidebarOpened"] ? "open" : "closed"
     );
+    const layoutLoading = computed(() => getters["user/navLoading"]);
+    dispatch("user/generateRouters")
+
 
     return {
       sideBarState,
+      layoutLoading
     };
   },
 });
@@ -43,6 +47,7 @@ export default defineComponent({
   display: flex;
   .sidebar {
     height: 100%;
+    transition: 0.3s;
     background-color: pink;
   }
 
