@@ -32,6 +32,7 @@ const mutations = {
 const actions = {
   refreshToken: async () => {
     const data = await refreshToken(getToken());
+    console.log("refreshToken", data)
     return data;
   }
 }

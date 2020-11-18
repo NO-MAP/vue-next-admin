@@ -14,6 +14,11 @@ export const refreshToken = (token) => request({
   }
 })
 
+export const hello = () => request({
+  url: "system/hello",
+  method: 'get'
+})
+
 // export const login = (data) => {
 //   return new Promise((resolve) => {
 //     setTimeout(() => { 

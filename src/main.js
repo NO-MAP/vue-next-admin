@@ -14,6 +14,10 @@ import dragable from "./directive/dragable"
 
 const app = createApp(App)
 
+app.config.errorHandler = (err) => {
+  console.error("errorHandler", err)
+}
+
 app.directive('dragable', dragable)
 
 app.use(store)

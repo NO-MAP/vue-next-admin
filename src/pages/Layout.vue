@@ -47,11 +47,12 @@ export default defineComponent({
   }
 
   .layout-content {
-    height: calc(100% - 84px);
+    height: 100%;
+    position: relative;
 
     .main-container {
       width: 100%;
-      height: 100%;
+      height: calc(100% - 84px);
       padding: 5px;
       box-sizing: border-box;
     }

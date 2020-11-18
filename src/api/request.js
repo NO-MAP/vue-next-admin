@@ -3,7 +3,7 @@ import { getToken } from '@/utils/auth'
 import { Message } from "element-plus/lib/message";
 import NProgress from "nprogress/nprogress";
 import config from "@/config"
-import { useStore } from 'vuex';
+import store from "@/store"
 
 const request = axios.create({
   baseURL: config.baseUrl,
@@ -17,6 +17,7 @@ request.interceptors.request.use(
     if (getToken()) {
       config.headers['Authorization'] = `Bearer ${getToken()}`;
     }
+    config.headers['Content-Type'] = 'application/json;charset=UTF-8';
     return config
   },
   error => {
@@ -44,16 +45,25 @@ request.interceptors.response.use(
   },
   async error => {
     NProgress.done();
-    const errorRES = error.response;
-    const { config, status, statusText } = errorRES;
-    if (status === 401) {
+    let code, msg, config;
+    if (error.response) {
+      const errResponse = error.response;
+      code = errResponse.status;
+      msg = errResponse.statusText;
+      config = errResponse.config;
+    } else {
+      config = error.config;
+      code = 500;
+      msg = "服务错误";
+    }
+    if (code === 401) {
       // 鉴权失败
       const res = await refreshToken(config)
       console.log("重新请求 结果", res)
       return res;
     } else {
       Message({
-        message: status + '--' + statusText,
+        message: code + '--' + msg,
         type: 'error',
         duration: 5 * 1000
       })
@@ -64,7 +74,6 @@ request.interceptors.response.use(
 )
 
 async function refreshToken(config) {
-  const store = useStore();
   await store.dispatch('user/refreshToken')
   const token = getToken();
   config.headers['Authorization'] = `Bearer ${token}`
