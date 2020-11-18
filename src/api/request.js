@@ -6,7 +6,7 @@ import store from "@/store"
 
 const request = axios.create({
   baseURL: "",
-  timeout: 30000
+  timeout: 50000
 })
 
 request.interceptors.request.use(
