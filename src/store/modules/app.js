@@ -4,7 +4,7 @@ const state = {
     h: 0,
   },
   sidebar: {
-    opened: true,
+    collapse: false,
     navs: [],
   },
   size: 'small'
@@ -12,7 +12,7 @@ const state = {
 
 const getters = {
   appSize: state => state.appSize,
-  sidebarOpened: (state) => state.sidebar.opened,
+  collapse: (state) => state.sidebar.collapse,
   sidebarNavs: state => state.sidebar.navs
 }
 
@@ -21,7 +21,7 @@ const mutations = {
     state.appSize = val;
   },
   TOGGLE_SIDEBAR: (state) => {
-    state.sidebar.opened = !state.sidebar.opened;
+    state.sidebar.collapse = !state.sidebar.collapse;
   },
   SET_SIZE: (state, size) => {
     state.size = size

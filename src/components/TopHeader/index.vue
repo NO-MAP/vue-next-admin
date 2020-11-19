@@ -22,8 +22,8 @@ export default defineComponent({
   setup() {
     const { commit, getters } = useStore();
     const toggleIcon = computed(() => {
-      const sidebarOpened = getters["app/sidebarOpened"];
-      return sidebarOpened ? "el-icon-s-fold" : "el-icon-s-unfold";
+      const collapse = getters["app/collapse"];
+      return collapse ? "el-icon-s-fold" : "el-icon-s-unfold";
     });
     const toggleSidebar = () => commit("app/TOGGLE_SIDEBAR");
 

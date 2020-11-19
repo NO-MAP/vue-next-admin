@@ -1,51 +1,38 @@
 <template>
-  <el-menu default-active="1-4-1" class="el-menu-vertical-demo">
-    <el-submenu index="1">
-      <template #title>
-        <i class="el-icon-location"></i>
-        <span>导航一</span>
-      </template>
-      <el-menu-item-group>
-        <template #title>分组一</template>
-        <el-menu-item index="1-1">选项1</el-menu-item>
-        <el-menu-item index="1-2">选项2</el-menu-item>
-      </el-menu-item-group>
-      <el-menu-item-group title="分组2">
-        <el-menu-item index="1-3">选项3</el-menu-item>
-      </el-menu-item-group>
-      <el-submenu index="1-4">
-        <template #title>选项4</template>
-        <el-menu-item index="1-4-1">选项1</el-menu-item>
-      </el-submenu>
-    </el-submenu>
-    <el-menu-item index="2">
-      <i class="el-icon-menu"></i>
-      <template #title>导航二</template>
+  <el-menu :collapse="collapse" :collapse-transition="false">
+    <el-menu-item index="Home">
+      <router-link to="/Home">
+        <i class="el-icon-s-home"></i>
+        <span>首页</span>
+      </router-link>
     </el-menu-item>
-    <el-menu-item index="3" disabled>
-      <i class="el-icon-document"></i>
-      <template #title>导航三</template>
-    </el-menu-item>
-    <el-menu-item index="4">
-      <i class="el-icon-setting"></i>
-      <template #title>导航四</template>
-    </el-menu-item>
+    <MenuItem v-for="item in navs" :key="item.path" :route="item" />
   </el-menu>
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
+import { useStore } from "vuex";
+import MenuItem from "./MenuItem";
 
 export default defineComponent({
   name: "Menu",
   props: {
-    nav: {
+    navs: {
       type: Array,
       required: true,
       default: () => [],
     },
   },
-  setup() {},
+  components: { MenuItem },
+  setup() {
+    const { getters } = useStore();
+    const collapse = computed(() => getters["app/collapse"]);
+
+    return {
+      collapse,
+    };
+  },
 });
 </script>
 

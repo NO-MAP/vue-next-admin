@@ -21,6 +21,7 @@ const defaultRouters = [
     component: Forbidden
   }, {
     path: '/',
+    name: 'Layout',
     redirect: '/Home',
     component: Layout,
     children: [

@@ -2,6 +2,7 @@ import { getRouters, refreshToken } from "@/api/user";
 import router from "@/router";
 import { removeToken, setReToken, setToken, removeReToken, getReToken } from "@/utils/auth";
 import { getStore, removeStore, setStore } from "@/utils/localStorage";
+import { generateRoutersByServiceData } from "@/utils/tool";
 
 const state = {
   userInfo: getStore({ name: 'userInfo' }) || {},
@@ -50,9 +51,12 @@ const actions = {
   },
   generateRouters: async ({ commit }) => {
     const data = await getRouters();
+    const routes = generateRoutersByServiceData(data);
     commit("NAV_LOADED")
     commit("SET_NAVS", data)
-    console.log(router)
+    routes.forEach(item => {
+      router.addRoute('Layout', item);
+    })
   }
 }
 

@@ -4,7 +4,7 @@
     <div class="layout-content">
       <TopHeader />
       <TagView />
-      <div class="main-container">
+      <div class="main-container" v-if="!layoutLoading">
         <router-view></router-view>
       </div>
     </div>
@@ -26,7 +26,7 @@ export default defineComponent({
   setup() {
     const { getters, dispatch } = useStore();
     const sideBarState = computed(() =>
-      getters["app/sidebarOpened"] ? "open" : "closed"
+      getters["app/collapse"] ? "closed" : "open"
     );
     const layoutLoading = computed(() => getters["user/navLoading"]);
     dispatch("user/generateRouters")
@@ -75,11 +75,11 @@ export default defineComponent({
 
   &.closed {
     .sidebar {
-      width: 50px;
+      width: 64px;
     }
 
     .layout-content {
-      width: calc(100% - 50px);
+      width: calc(100% - 64px);
     }
   }
 }

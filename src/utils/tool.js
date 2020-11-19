@@ -22,3 +22,34 @@ export const _debounce = (func, wait, immediate) => {
     }
   }
 }
+
+/**
+ * @returns {Router}
+ * @param {服务端路由数据} routes Array
+ */
+export const generateRoutersByServiceData = (routes) => {
+  let result = [];
+
+  for (let route of routes) {
+    const data = {
+      path: route.path,
+      name: route.name,
+      meta: {
+        icon: route.icon,
+        title: route.title
+      },
+    }
+    if (route.redirect) {
+      data.redirect = route.redirect
+    }
+
+    if (route.children) {
+      data.component = () => import('@/pages/ParentView')
+      data.children = generateRoutersByServiceData(route.children)
+    } else {
+      data.component = () => import('@/views' + route.path)
+    }
+    result.push(data)
+  }
+  return result
+}
