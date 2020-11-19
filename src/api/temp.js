@@ -7,14 +7,14 @@ export const routers = [
   }, {
     title: '文章',
     name: 'Article',
-    icon: 'el-icon-chat',
+    icon: 'el-icon-notebook-2',
     path: '/Article',
     redirect: '/Article/Manager',
     children: [
       {
         title: '总览',
         name: 'ArticleManager',
-        icon: 'el-icon-chat',
+        icon: 'el-icon-notebook-1',
         path: '/Article/Manager',
       }, {
         title: '详情',
@@ -31,7 +31,7 @@ export const routers = [
       }
     ]
   }, {
-    title: '系统管理',
+    title: '系统',
     name: 'System',
     icon: 'el-icon-ship',
     path: '/System',

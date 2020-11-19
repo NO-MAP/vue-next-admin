@@ -1,5 +1,5 @@
 <template>
-  <el-menu :collapse="collapse" :collapse-transition="false">
+  <el-menu :collapse="collapse" router :collapse-transition="false">
     <el-menu-item index="Home">
       <router-link to="/Home">
         <i class="el-icon-s-home"></i>

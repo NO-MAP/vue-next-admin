@@ -1,5 +1,9 @@
 <template>
-  <el-menu-item v-if="!route.children && !route.hide" :index="route.path">
+  <el-menu-item
+    :route="route.path"
+    v-if="!route.children && !route.hide"
+    :index="route.path"
+  >
     <router-link :to="route.path">
       <i :class="route.icon"></i>
       <span>{{ route.title }}</span>
@@ -29,6 +33,7 @@ export default defineComponent({
       required: true,
     },
   },
+  setup() {},
 });
 </script>
 

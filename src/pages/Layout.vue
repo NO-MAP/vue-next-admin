@@ -4,7 +4,7 @@
     <div class="layout-content">
       <TopHeader />
       <TagView />
-      <div class="main-container" v-if="!layoutLoading">
+      <div class="main-container">
         <router-view></router-view>
       </div>
     </div>
