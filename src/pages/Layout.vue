@@ -1,5 +1,5 @@
 <template>
-  <div class="layout" v-loading="layoutLoading" :class="sideBarState">
+  <div class="layout" :class="sideBarState">
     <SideBar />
     <div class="layout-content">
       <TopHeader />
@@ -24,17 +24,13 @@ export default defineComponent({
   name: "Layout",
   components: { SideBar, TopHeader, TagView },
   setup() {
-    const { getters, dispatch } = useStore();
+    const { getters } = useStore();
     const sideBarState = computed(() =>
       getters["app/collapse"] ? "closed" : "open"
     );
-    const layoutLoading = computed(() => getters["user/navLoading"]);
-    dispatch("user/generateRouters")
-
 
     return {
       sideBarState,
-      layoutLoading
     };
   },
 });

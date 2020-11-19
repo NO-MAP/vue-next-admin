@@ -1,13 +1,34 @@
 import router from "./index";
 import { getReToken, getToken } from "@/utils/auth"
 import NProgress from "nprogress/nprogress";
+import store from "@/store";
 
-router.beforeEach((to, from, next) => {
+const whiteList = ['Login', 'Register']
+
+/**
+ * @description 判断是否是白名单路由
+ * @param {route name} name 
+ */
+const isWhite = (name) => whiteList.indexOf(name) != -1
+
+router.beforeEach(async (to, from, next) => {
   const token = getToken();
   const reToken = getReToken();
   const tokenFlag = !!(token && reToken)
   NProgress.start();
-  if (!tokenFlag && to.name != 'Login') {
+
+  // 动态加载路由
+  const { dispatch, getters } = store;
+  const navRoutes = getters["user/navRoutes"];
+  if (tokenFlag && !isWhite(to.name) && navRoutes.length == 0) {
+    console.log("加载")
+    await dispatch("user/generateRouters")
+    next({ ...to, replace: true })
+  }
+
+
+
+  if (!tokenFlag && !isWhite(to.name)) {
     next({
       name: 'Login',
       query: {
@@ -15,10 +36,10 @@ router.beforeEach((to, from, next) => {
       }
     });
     NProgress.done();
-  } else if (!tokenFlag && to.name == 'Login') {
+  } else if (!tokenFlag && isWhite(to.name)) {
     next();
     NProgress.done();
-  } else if (tokenFlag && to.name == 'Login') {
+  } else if (tokenFlag && isWhite(to.name)) {
     next({ name: 'Home' });
     NProgress.done();
   } else {
@@ -26,3 +47,4 @@ router.beforeEach((to, from, next) => {
     NProgress.done();
   }
 })
+

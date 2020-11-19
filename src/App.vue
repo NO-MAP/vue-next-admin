@@ -1,18 +1,18 @@
 <template>
-  <div id="app">
+  <div id="app" v-loading="navLoading">
     <router-view />
   </div>
 </template>
 
 <script>
 import { _debounce } from "@/utils/tool";
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
 import { useStore } from "vuex";
 
 export default defineComponent({
   name: "app",
   setup() {
-    const { commit } = useStore();
+    const { commit, getters } = useStore();
     const setSize = () => {
       const boxrect = document.getElementById("app").getBoundingClientRect();
       const size = {
@@ -27,8 +27,11 @@ export default defineComponent({
     };
     window.addEventListener("resize", resizeHandle());
 
+    const navLoading = computed(() => getters["user/navLoading"]);
+
     return {
       resizeHandle,
+      navLoading,
     };
   },
   beforeUnmount() {

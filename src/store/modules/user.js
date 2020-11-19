@@ -7,7 +7,7 @@ import { generateRoutersByServiceData } from "@/utils/tool";
 const state = {
   userInfo: getStore({ name: 'userInfo' }) || {},
   navRoutes: [],
-  navLoading: true,
+  navLoading: false,
 }
 
 const getters = {
@@ -37,6 +37,9 @@ const mutations = {
   SET_NAVS: (state, data) => {
     state.navRoutes = data;
   },
+  NAV_LOADING: (state) => {
+    state.navLoading = true;
+  },
   NAV_LOADED: (state) => {
     state.navLoading = false;
   }
@@ -50,6 +53,7 @@ const actions = {
     return data;
   },
   generateRouters: async ({ commit }) => {
+    commit("NAV_LOADING")
     const data = await getRouters();
     const routes = generateRoutersByServiceData(data);
     commit("NAV_LOADED")
@@ -57,6 +61,7 @@ const actions = {
     routes.forEach(item => {
       router.addRoute('Layout', item);
     })
+    return data
   }
 }
 
