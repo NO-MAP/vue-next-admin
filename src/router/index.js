@@ -32,10 +32,10 @@ const defaultRouters = [
       }
     ]
   },
-  // {
-  //   path: '/:pathMatch(.*)*',
-  //   redirect: '/404'
-  // },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/404'
+  },
 ]
 
 const routes = [
