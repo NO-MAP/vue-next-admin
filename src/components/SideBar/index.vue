@@ -24,7 +24,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .sidebar {
   overflow: hidden;
   .side-title {
@@ -34,5 +34,6 @@ export default defineComponent({
     display: flex;
     align-items: center;
   }
+
 }
 </style>>

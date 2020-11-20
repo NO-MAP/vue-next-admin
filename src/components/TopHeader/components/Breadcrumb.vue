@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { computed, defineComponent, ref, watch } from "vue";
+import { defineComponent, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 
 export default defineComponent({
@@ -17,14 +17,12 @@ export default defineComponent({
     const breadList = ref([]);
     const route = useRoute();
 
-    const path = computed(() => route.path);
-
     const generateList = () => {
       breadList.value = route.matched.filter((item) => item.name != "Layout");
     };
 
     watch(
-      path,
+      () => route.path,
       () => {
         generateList();
       },
@@ -35,7 +33,6 @@ export default defineComponent({
 
     return {
       breadList,
-      path,
     };
   },
 });

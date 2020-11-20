@@ -3,7 +3,7 @@
     <i :class="toggleIcon"></i>
   </div>
   <div class="toggle" v-if="isMobile" @click="showSidebar">
-    <i :class="toggleIcon"></i>
+    <i class="el-icon-s-unfold"></i>
   </div>
   <el-drawer
     :title="config.stTitle"
@@ -32,7 +32,7 @@ export default defineComponent({
     const { commit, getters } = useStore();
     const toggleIcon = computed(() => {
       const collapse = getters["app/collapse"];
-      return collapse ? "el-icon-s-fold" : "el-icon-s-unfold";
+      return collapse ? "el-icon-s-unfold" : "el-icon-s-fold";
     });
     const isMobile = computed(() => getters["app/isMobile"]);
 

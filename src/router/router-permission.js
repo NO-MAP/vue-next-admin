@@ -11,53 +11,41 @@ const whiteList = ['Login', 'Register', 'NotFound', 'Forbidden']
  */
 const isWhite = (name) => whiteList.indexOf(name) != -1
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to) => {
   const token = getToken();
   const reToken = getReToken();
   const tokenFlag = !!(token && reToken)
   NProgress.start();
 
-  // 动态加载路由
   const { dispatch, getters } = store;
   const navRoutes = getters["user/navRoutes"];
 
-  if (tokenFlag) {
-    if (isWhite(to.name)) {
-      if (to.name == 'Login' || to.name == 'Register') {
-        next({ name: 'Home' });
-      } else {
-        next()
-      }
-      NProgress.done();
-    } else {
-      if (navRoutes.length == 0) {
-        await dispatch("user/generateRouters")
-        next({ ...to, replace: true })
-        NProgress.done();
-      } else {
-        next();
-        NProgress.done();
-      }
-    }
-  } else {
-    if (isWhite(to.name)) {
-      next();
-      NProgress.done();
-    } else {
-      next({
-        name: 'Login',
-        query: {
-          redirect: to.fullPath
-        }
-      });
-      NProgress.done();
+  if (tokenFlag && !isWhite(to.name) && navRoutes.length == 0) {
+    await dispatch("user/generateRouters")
+    NProgress.done();
+    return { ...to }
+  }
+
+  NProgress.done();
+  if (tokenFlag && isWhite(to.name) && (to.name == 'Login' || to.name == 'Register')) return {
+    name: 'Home'
+  }
+
+  if (!tokenFlag && !isWhite(to.name)) return {
+    name: 'Login',
+    query: {
+      redirect: to.fullPath
     }
   }
+
+  return true
 })
 
 router.afterEach((to) => {
   if (!isWhite(to.name)) {
-    store.commit("app/ADD_TAG", to)
+    const matchedPath = router.resolve(to).matched[0].path;
+    if (matchedPath != '/:pathMatch(.*)*') {
+      store.commit("app/ADD_TAG", to)
+    }
   }
 })
-

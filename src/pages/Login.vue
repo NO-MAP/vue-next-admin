@@ -67,7 +67,7 @@ import { computed, defineComponent, reactive, ref } from "vue";
 import { useStore } from "vuex";
 import { useSWR, SWR } from "@/hooks/useSWR";
 import { login } from "@/api/user";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 export default defineComponent({
   name: "Login",
@@ -75,6 +75,7 @@ export default defineComponent({
   setup() {
     const { getters, commit } = useStore();
     const router = useRouter();
+    const route = useRoute();
     const ref_form = ref(null);
     const ePosition = reactive({
       x: 0,
@@ -104,9 +105,14 @@ export default defineComponent({
           const { result } = loginData;
           if (result) {
             commit("user/SET_USERINFO", result);
-            router.push({
-              name: "Home",
-            });
+            const { redirect } = route.query;
+            if (redirect) {
+              router.push({ path: redirect });
+            } else {
+              router.push({
+                name: "Home",
+              });
+            }
           }
         } else {
           console.log("验证失败");

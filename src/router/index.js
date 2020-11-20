@@ -34,7 +34,7 @@ const defaultRouters = [
   },
   {
     path: '/:pathMatch(.*)*',
-    redirect: '/404'
+    component: NotFound,
   },
 ]
 

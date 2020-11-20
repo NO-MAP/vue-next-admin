@@ -68,11 +68,11 @@ export default defineComponent({
 
   &.open {
     .sidebar {
-      width: 250px;
+      width: 200px;
     }
 
     .layout-content {
-      width: calc(100% - 250px);
+      width: calc(100% - 200px);
     }
   }
 

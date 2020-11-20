@@ -5,7 +5,7 @@
         <Tag
           v-for="item in tagView"
           :key="item.path"
-          :active="item.path == currentPath"
+          :active="item.path == route.path"
           :unclose="item.meta.unclose"
           @select="tagSelectHandle(item)"
           @close="tagCloseHandle(item)"
@@ -18,7 +18,7 @@
         <span class="el-dropdown-link">
           <i
             style="margin-left: 0px"
-            class="el-icon-arrow-down el-icon--right"
+            class="opra-icon el-icon-arrow-down el-icon--right"
           ></i>
         </span>
         <template #dropdown>
@@ -44,10 +44,7 @@ export default defineComponent({
   setup() {
     const { getters, commit } = useStore();
     const tagView = computed(() => getters["app/tagView"]);
-    const currentPath = computed(() => {
-      const route = useRoute();
-      return route.path;
-    });
+    const route = useRoute();
 
     const router = useRouter();
     const tagSelectHandle = (route) => {
@@ -58,20 +55,20 @@ export default defineComponent({
 
     const tagCloseHandle = (route) => {
       commit("app/DEL_TAG", {
-        currentPath: currentPath.value,
+        currentPath: route.path,
         route,
       });
     };
 
     const closeAllTag = () => {
       commit("app/CLEAR_TAG", {
-        currentPath: currentPath.value,
+        currentPath: route.path,
       });
     };
 
     const closeOtherTag = () => {
       commit("app/CLEAR_OTHER_TAG", {
-        currentPath: currentPath.value,
+        currentPath: route.path,
       });
     };
 
@@ -93,7 +90,7 @@ export default defineComponent({
 
     return {
       tagView,
-      currentPath,
+      route,
       tagSelectHandle,
       tagCloseHandle,
       closeAllTag,
@@ -120,6 +117,17 @@ export default defineComponent({
     justify-content: center;
     cursor: pointer;
     border-left: 1px solid rgba(0, 0, 0, 0.1);
+    .opra-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 33px;
+      width: 33px;
+      &:hover {
+        color: white;
+        background-color: pink;
+      }
+    }
   }
   .list-wrap {
     width: calc(100% - 33px);

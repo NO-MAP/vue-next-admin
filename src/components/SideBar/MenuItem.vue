@@ -1,22 +1,23 @@
 <template>
   <el-menu-item
-    :route="route.path"
+    :route="route.path.toLocaleLowerCase()"
     v-if="!route.children && !route.hide"
-    :index="route.path"
+    :index="route.path.toLocaleLowerCase()"
   >
-    <router-link :to="route.path.toLocaleLowerCase()">
-      <i :class="route.icon"></i>
-      <span>{{ route.title }}</span>
-    </router-link>
+    <i :class="route.icon"></i>
+    <span>{{ route.title }}</span>
   </el-menu-item>
-  <el-submenu v-if="route.children && !route.hide" :index="route.path">
+  <el-submenu
+    v-if="route.children && !route.hide"
+    :index="route.path.toLocaleLowerCase()"
+  >
     <template #title>
       <i :class="route.icon"></i>
       <span>{{ route.title }}</span>
     </template>
     <MenuItem
       v-for="childRoute in route.children"
-      :key="childRoute.path"
+      :key="childRoute.path.toLocaleLowerCase()"
       :route="childRoute"
     />
   </el-submenu>

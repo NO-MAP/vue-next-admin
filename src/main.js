@@ -10,6 +10,9 @@ import 'nprogress/nprogress.css'
 
 import './router/router-permission'
 
+import NProgress from "nprogress/nprogress";
+NProgress.configure({showSpinner: false});
+
 import dragable from "./directive/dragable"
 
 const app = createApp(App)
