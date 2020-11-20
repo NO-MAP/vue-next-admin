@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
     <div class="side-title">vue-next-admin</div>
-    <Menu :navs="navs" />
+    <Menu :collapse="collapse" />
   </div>
 </template>
 
@@ -15,9 +15,10 @@ export default defineComponent({
   components: { Menu },
   setup() {
     const { getters } = useStore();
-    const navs = computed(() => getters["user/navRoutes"]);
+    const collapse = computed(() => getters["app/collapse"]);
+
     return {
-      navs,
+      collapse,
     };
   },
 });

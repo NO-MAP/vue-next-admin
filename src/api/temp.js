@@ -38,6 +38,11 @@ export const routers = [
     redirect: '/System/User',
     children: [
       {
+        title: '角色',
+        name: 'SystemRole',
+        icon: 'el-icon-menu',
+        path: '/System/Role',
+      }, {
         title: '用户',
         name: 'SystemUser',
         icon: 'el-icon-user',
@@ -47,7 +52,7 @@ export const routers = [
         name: 'SystemMenu',
         icon: 'el-icon-menu',
         path: '/System/Menu',
-      }
+      },
     ]
   }
 ]

@@ -4,7 +4,7 @@
     v-if="!route.children && !route.hide"
     :index="route.path"
   >
-    <router-link :to="route.path">
+    <router-link :to="route.path.toLocaleLowerCase()">
       <i :class="route.icon"></i>
       <span>{{ route.title }}</span>
     </router-link>

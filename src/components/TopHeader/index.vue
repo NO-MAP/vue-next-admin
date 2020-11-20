@@ -1,9 +1,7 @@
 <template>
   <div class="top-header">
     <div class="left">
-      <div class="toggle" @click="toggleSidebar">
-        <i :class="toggleIcon"></i>
-      </div>
+      <SidebarToggle />
       <Breadcrumb />
     </div>
     <div class="right"></div>
@@ -11,27 +9,15 @@
 </template>
 
 <script>
-import { computed, defineComponent } from "vue";
-import { useStore } from "vuex";
+import { defineComponent } from "vue";
 
 import Breadcrumb from "./components/Breadcrumb";
+import SidebarToggle from "./components/SidebarToggle";
 
 export default defineComponent({
   name: "TopHeader",
-  components: { Breadcrumb },
-  setup() {
-    const { commit, getters } = useStore();
-    const toggleIcon = computed(() => {
-      const collapse = getters["app/collapse"];
-      return collapse ? "el-icon-s-fold" : "el-icon-s-unfold";
-    });
-    const toggleSidebar = () => commit("app/TOGGLE_SIDEBAR");
-
-    return {
-      toggleSidebar,
-      toggleIcon,
-    };
-  },
+  components: { Breadcrumb, SidebarToggle },
+  setup() {},
 });
 </script>
 
@@ -58,7 +44,7 @@ export default defineComponent({
         font-size: 20px;
       }
     }
-    .breadcrumb{
+    .breadcrumb {
       padding-left: 10px;
     }
   }

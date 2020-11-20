@@ -32,7 +32,7 @@ export const generateRoutersByServiceData = (routes) => {
 
   for (let route of routes) {
     const data = {
-      path: route.path,
+      path: route.path.toLocaleLowerCase(),
       name: route.name,
       meta: {
         icon: route.icon,
@@ -40,7 +40,7 @@ export const generateRoutersByServiceData = (routes) => {
       },
     }
     if (route.redirect) {
-      data.redirect = route.redirect
+      data.redirect = route.redirect.toLocaleLowerCase();
     }
 
     if (route.children) {

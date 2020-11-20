@@ -1,7 +1,7 @@
 <template>
   <el-menu :collapse="collapse" router :collapse-transition="false">
-    <el-menu-item index="Home">
-      <router-link to="/Home">
+    <el-menu-item index="home">
+      <router-link to="/home">
         <i class="el-icon-s-home"></i>
         <span>首页</span>
       </router-link>
@@ -11,26 +11,24 @@
 </template>
 
 <script>
-import { computed, defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
 import MenuItem from "./MenuItem";
 
 export default defineComponent({
   name: "Menu",
   props: {
-    navs: {
-      type: Array,
-      required: true,
-      default: () => [],
+    collapse: {
+      type: Boolean,
+      default: false,
     },
   },
   components: { MenuItem },
   setup() {
     const { getters } = useStore();
-    const collapse = computed(() => getters["app/collapse"]);
-
+    const navs = computed(() => getters["user/navRoutes"]);
     return {
-      collapse,
+      navs,
     };
   },
 });

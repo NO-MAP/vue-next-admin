@@ -55,7 +55,8 @@ export default defineComponent({
   padding: 0 6px;
   cursor: pointer;
   position: relative;
-  margin-right: 5px;
+  margin: 0 5px;
+  flex-shrink: 0;
   &.active {
     background-color: rgb(112, 94, 97);
     border: 1px solid rgba(221, 221, 221, 0);

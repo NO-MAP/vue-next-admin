@@ -8,7 +8,7 @@ import Home from '@/views/Home.vue';
 
 const defaultRouters = [
   {
-    path: '/Login',
+    path: '/login',
     name: 'Login',
     component: Login
   }, {
@@ -22,16 +22,20 @@ const defaultRouters = [
   }, {
     path: '/',
     name: 'Layout',
-    redirect: '/Home',
+    redirect: '/home',
     component: Layout,
     children: [
       {
-        path: '/Home',
+        path: '/home',
         name: 'Home',
         component: Home
       }
     ]
-  }
+  },
+  // {
+  //   path: '/:pathMatch(.*)*',
+  //   redirect: '/404'
+  // },
 ]
 
 const routes = [

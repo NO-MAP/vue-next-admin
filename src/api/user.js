@@ -19,7 +19,7 @@ export const getRouters = () => {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve(routers)
-    }, 1500);
+    }, 800);
   })
 }
 

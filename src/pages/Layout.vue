@@ -1,6 +1,6 @@
 <template>
-  <div class="layout" :class="sideBarState">
-    <SideBar />
+  <div class="layout" :class="layoutClass">
+    <SideBar v-if="!isMobile" />
     <div class="layout-content">
       <TopHeader />
       <TagView />
@@ -25,12 +25,18 @@ export default defineComponent({
   components: { SideBar, TopHeader, TagView },
   setup() {
     const { getters } = useStore();
-    const sideBarState = computed(() =>
-      getters["app/collapse"] ? "closed" : "open"
-    );
+    const layoutClass = computed(() => {
+      const sdClass = [];
+      getters["app/isMobile"] ? sdClass.push("mobile") : "";
+      getters["app/collapse"] ? sdClass.push("closed") : sdClass.push("open");
+      return sdClass.join(" ");
+    });
+
+    const isMobile = computed(() => getters["app/isMobile"]);
 
     return {
-      sideBarState,
+      layoutClass,
+      isMobile,
     };
   },
 });
@@ -50,6 +56,7 @@ export default defineComponent({
   .layout-content {
     height: 100%;
     position: relative;
+    transition: 0.3s;
 
     .main-container {
       width: 100%;
@@ -76,6 +83,12 @@ export default defineComponent({
 
     .layout-content {
       width: calc(100% - 64px);
+    }
+  }
+
+  &.mobile {
+    .layout-content {
+      width: 100%;
     }
   }
 }

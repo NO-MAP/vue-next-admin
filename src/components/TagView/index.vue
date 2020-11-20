@@ -1,15 +1,17 @@
 <template>
   <div class="tag-view">
     <div class="list-wrap">
-      <Tag
-        v-for="item in tagView"
-        :key="item.path"
-        :active="item.path == currentPath"
-        :unclose="item.meta.unclose"
-        @select="tagSelectHandle(item)"
-        @close="tagCloseHandle(item)"
-        >{{ item.meta.title }}</Tag
-      >
+      <div class="scrollbar-wra" id="tagScrollBar">
+        <Tag
+          v-for="item in tagView"
+          :key="item.path"
+          :active="item.path == currentPath"
+          :unclose="item.meta.unclose"
+          @select="tagSelectHandle(item)"
+          @close="tagCloseHandle(item)"
+          >{{ item.meta.title }}</Tag
+        >
+      </div>
     </div>
     <div class="opra">
       <el-dropdown trigger="click">
@@ -21,11 +23,8 @@
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>黄金糕</el-dropdown-item>
-            <el-dropdown-item>狮子头</el-dropdown-item>
-            <el-dropdown-item>螺蛳粉</el-dropdown-item>
-            <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-            <el-dropdown-item divided>蚵仔煎</el-dropdown-item>
+            <el-dropdown-item @click="closeAllTag">关闭所有</el-dropdown-item>
+            <el-dropdown-item @click="closeOtherTag">关闭其他</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -34,7 +33,7 @@
 </template>
 
 <script>
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent, onBeforeUnmount, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import Tag from "./Tag";
@@ -43,7 +42,7 @@ export default defineComponent({
   name: "TagView",
   components: { Tag },
   setup() {
-    const { getters } = useStore();
+    const { getters, commit } = useStore();
     const tagView = computed(() => getters["app/tagView"]);
     const currentPath = computed(() => {
       const route = useRoute();
@@ -58,14 +57,47 @@ export default defineComponent({
     };
 
     const tagCloseHandle = (route) => {
-      console.log("close", route);
+      commit("app/DEL_TAG", {
+        currentPath: currentPath.value,
+        route,
+      });
     };
+
+    const closeAllTag = () => {
+      commit("app/CLEAR_TAG", {
+        currentPath: currentPath.value,
+      });
+    };
+
+    const closeOtherTag = () => {
+      commit("app/CLEAR_OTHER_TAG", {
+        currentPath: currentPath.value,
+      });
+    };
+
+    const mouseWheelHandle = (e) => {
+      const dom = document.getElementById("tagScrollBar");
+      const d = e.wheelDelta > 0 ? -40 : 40;
+      dom.scrollLeft += d;
+    };
+
+    onMounted(() => {
+      const dom = document.getElementById("tagScrollBar");
+      dom.addEventListener("mousewheel", mouseWheelHandle);
+    });
+
+    onBeforeUnmount(() => {
+      const dom = document.getElementById("tagScrollBar");
+      dom.removeEventListener("mousewheel", mouseWheelHandle);
+    });
 
     return {
       tagView,
       currentPath,
       tagSelectHandle,
       tagCloseHandle,
+      closeAllTag,
+      closeOtherTag,
     };
   },
 });
@@ -94,8 +126,21 @@ export default defineComponent({
     box-sizing: border-box;
     padding: 0 10px;
     height: 100%;
-    display: flex;
-    align-items: center;
+    overflow: hidden;
+    position: relative;
+    .scrollbar-wra {
+      scroll-snap-type: x mandatory;
+      width: 100%;
+      height: 39px;
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      .tag {
+        scroll-snap-align: start;
+      }
+    }
   }
 }
 </style>

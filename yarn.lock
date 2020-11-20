@@ -918,7 +918,7 @@
 
 "@sinonjs/commons@^1", "@sinonjs/commons@^1.6.0", "@sinonjs/commons@^1.7.0", "@sinonjs/commons@^1.8.1":
   version "1.8.1"
-  resolved "https://registry.npm.taobao.org/@sinonjs/commons/download/@sinonjs/commons-1.8.1.tgz#e7df00f98a203324f6dc7cc606cad9d4a8ab2217"
+  resolved "https://registry.npm.taobao.org/@sinonjs/commons/download/@sinonjs/commons-1.8.1.tgz?cache=0&sync_timestamp=1594975775946&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40sinonjs%2Fcommons%2Fdownload%2F%40sinonjs%2Fcommons-1.8.1.tgz#e7df00f98a203324f6dc7cc606cad9d4a8ab2217"
   integrity sha1-598A+YogMyT23HzGBsrZ1KirIhc=
   dependencies:
     type-detect "4.0.8"
@@ -939,9 +939,9 @@
     "@sinonjs/samsam" "^5.0.2"
 
 "@sinonjs/samsam@^5.0.2", "@sinonjs/samsam@^5.2.0":
-  version "5.2.0"
-  resolved "https://registry.npm.taobao.org/@sinonjs/samsam/download/@sinonjs/samsam-5.2.0.tgz#fcff83ab86f83b5498f4a967869c079408d9b5eb"
-  integrity sha1-/P+Dq4b4O1SY9KlnhpwHlAjZtes=
+  version "5.3.0"
+  resolved "https://registry.npm.taobao.org/@sinonjs/samsam/download/@sinonjs/samsam-5.3.0.tgz?cache=0&sync_timestamp=1605540096201&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40sinonjs%2Fsamsam%2Fdownload%2F%40sinonjs%2Fsamsam-5.3.0.tgz#1d2f0743dc54bf13fe9d508baefacdffa25d4329"
+  integrity sha1-HS8HQ9xUvxP+nVCLrvrN/6JdQyk=
   dependencies:
     "@sinonjs/commons" "^1.6.0"
     lodash.get "^4.4.2"
@@ -3388,7 +3388,7 @@ detect-node@^2.0.4:
 
 diff@^4.0.2:
   version "4.0.2"
-  resolved "https://registry.npm.taobao.org/diff/download/diff-4.0.2.tgz?cache=0&sync_timestamp=1604803633979&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdiff%2Fdownload%2Fdiff-4.0.2.tgz#60f3aecb89d5fae520c11aa19efc2bb982aade7d"
+  resolved "https://registry.npm.taobao.org/diff/download/diff-4.0.2.tgz#60f3aecb89d5fae520c11aa19efc2bb982aade7d"
   integrity sha1-YPOuy4nV+uUgwRqhnvwruYKq3n0=
 
 diffie-hellman@^5.0.0:
@@ -5637,7 +5637,7 @@ lodash.defaultsdeep@^4.6.1:
 
 lodash.get@^4.4.2:
   version "4.4.2"
-  resolved "https://registry.npm.taobao.org/lodash.get/download/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
+  resolved "https://registry.npm.taobao.org/lodash.get/download/lodash.get-4.4.2.tgz?cache=0&sync_timestamp=1586263972105&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Flodash.get%2Fdownload%2Flodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
   integrity sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=
 
 lodash.kebabcase@^4.1.1:
@@ -5989,7 +5989,7 @@ mississippi@^3.0.0:
 
 mitt@^2.1.0:
   version "2.1.0"
-  resolved "https://registry.npm.taobao.org/mitt/download/mitt-2.1.0.tgz#f740577c23176c6205b121b2973514eade1b2230"
+  resolved "https://registry.npm.taobao.org/mitt/download/mitt-2.1.0.tgz?cache=0&sync_timestamp=1594823683099&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmitt%2Fdownload%2Fmitt-2.1.0.tgz#f740577c23176c6205b121b2973514eade1b2230"
   integrity sha1-90BXfCMXbGIFsSGylzUU6t4bIjA=
 
 mixin-deep@^1.2.0:
@@ -6710,7 +6710,7 @@ path-to-regexp@0.1.7:
 
 path-to-regexp@^1.7.0:
   version "1.8.0"
-  resolved "https://registry.npm.taobao.org/path-to-regexp/download/path-to-regexp-1.8.0.tgz?cache=0&sync_timestamp=1601400247487&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpath-to-regexp%2Fdownload%2Fpath-to-regexp-1.8.0.tgz#887b3ba9d84393e87a0a0b9f4cb756198b53548a"
+  resolved "https://registry.npm.taobao.org/path-to-regexp/download/path-to-regexp-1.8.0.tgz?cache=0&sync_timestamp=1601400433519&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpath-to-regexp%2Fdownload%2Fpath-to-regexp-1.8.0.tgz#887b3ba9d84393e87a0a0b9f4cb756198b53548a"
   integrity sha1-iHs7qdhDk+h6CgufTLdWGYtTVIo=
   dependencies:
     isarray "0.0.1"
@@ -8430,7 +8430,7 @@ supports-color@^6.1.0:
 
 supports-color@^7.0.0, supports-color@^7.1.0:
   version "7.2.0"
-  resolved "https://registry.npm.taobao.org/supports-color/download/supports-color-7.2.0.tgz?cache=0&sync_timestamp=1598611730985&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fsupports-color%2Fdownload%2Fsupports-color-7.2.0.tgz#1b7dcdcb32b8138801b3e478ba6a51caa89648da"
+  resolved "https://registry.npm.taobao.org/supports-color/download/supports-color-7.2.0.tgz?cache=0&sync_timestamp=1598611732186&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fsupports-color%2Fdownload%2Fsupports-color-7.2.0.tgz#1b7dcdcb32b8138801b3e478ba6a51caa89648da"
   integrity sha1-G33NyzK4E4gBs+R4umpRyqiWSNo=
   dependencies:
     has-flag "^4.0.0"
