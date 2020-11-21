@@ -52,7 +52,13 @@ export const routers = [
         name: 'SystemMenu',
         icon: 'el-icon-menu',
         path: '/System/Menu',
-      },
+      }
     ]
+  }, {
+    title: '个人中心',
+    name: 'UserCenter',
+    icon: 'el-icon-user',
+    path: '/UserCenter',
+    hide: true,
   }
 ]

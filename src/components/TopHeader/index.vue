@@ -4,7 +4,9 @@
       <SidebarToggle />
       <Breadcrumb />
     </div>
-    <div class="right"></div>
+    <div class="right">
+      <User />
+    </div>
   </div>
 </template>
 
@@ -13,10 +15,11 @@ import { defineComponent } from "vue";
 
 import Breadcrumb from "./components/Breadcrumb";
 import SidebarToggle from "./components/SidebarToggle";
+import User from "./components/User";
 
 export default defineComponent({
   name: "TopHeader",
-  components: { Breadcrumb, SidebarToggle },
+  components: { Breadcrumb, SidebarToggle, User },
   setup() {},
 });
 </script>

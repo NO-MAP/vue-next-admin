@@ -3,6 +3,7 @@ import router from "@/router";
 import { removeToken, setReToken, setToken, removeReToken, getReToken } from "@/utils/auth";
 import { getStore, removeStore, setStore } from "@/utils/localStorage";
 import { generateRoutersByServiceData } from "@/utils/tool";
+import { MessageBox } from "element-plus/lib/message-box";
 
 const state = {
   userInfo: getStore({ name: 'userInfo' }) || {},
@@ -62,6 +63,20 @@ const actions = {
       router.addRoute('Layout', item);
     })
     return data
+  },
+  logout: async ({ commit }) => {
+    await MessageBox.confirm('此操作将退出系统, 是否继续?', '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning'
+    })
+    console.log("退出登录")
+    commit("CLEAR_USERINFO");
+    commit("app/CLEAR_TAG", {}, { root: true });
+    router.push({
+      name: 'Login'
+    })
+    return true;
   }
 }
 
