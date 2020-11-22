@@ -20,8 +20,11 @@ const state = {
   }],
   size: 'small',
   theme: getStore({ name: 'theme' }) || {
-    mainColor: "#ffffff",
-    reverseColor: "#000000"
+    mainColor: "#EDB2B2",
+    reverseColor: "rgb(212, 154, 155)",
+    reverseColor2: "rgb(169, 121, 121)",
+    reverseColor3: "rgb(127, 87, 88)",
+    reverseColor4: "rgb(105, 70, 71)",
   }
 }
 
