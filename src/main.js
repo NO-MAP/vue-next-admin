@@ -6,7 +6,9 @@ import store from './store'
 import ElementPlus from 'element-plus';
 import './styles/reset.css'
 import 'element-plus/lib/theme-chalk/index.css';
+import './styles/element-reset.scss';
 import 'nprogress/nprogress.css'
+import './styles/theme.scss'
 
 import './router/router-permission'
 
@@ -27,6 +29,6 @@ app.use(store)
 
 app.use(router)
 
-app.use(ElementPlus, { size: 'small', zIndex: 3000 })
+app.use(ElementPlus, { size: 'mini', zIndex: 3000 })
 
 app.mount('#app')

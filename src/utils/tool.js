@@ -53,3 +53,41 @@ export const generateRoutersByServiceData = (routes) => {
   }
   return result
 }
+
+/**
+ * @description 动态生成css 插入head
+ */
+export const addCSS = (cssText, id) => {
+  const style = document.createElement('style');  //创建一个style元素
+  style.id = id;
+  const head = document.head || document.getElementsByTagName('head')[0]; //获取head元素
+
+  style.type = 'text/css'; //这里必须显示设置style元素的type属性为text/css，否则在ie中不起作用
+  return new Promise((resolve, reject) => {
+    if (style.styleSheet) { //IE
+      try { //防止IE中stylesheet数量超过限制而发生错误
+        style.styleSheet.cssText = cssText;
+        head.appendChild(style); //把创建的style元素插入到head中    
+        resolve();
+      } catch (e) {
+        reject(e)
+      }
+    } else { //w3c
+      //w3c浏览器中只要创建文本节点插入到style元素中就行了
+      var textNode = document.createTextNode(cssText);
+      style.appendChild(textNode);
+      head.appendChild(style); //把创建的style元素插入到head中    
+      resolve();
+    }
+
+  })
+}
+
+/**
+ * @description js通过id 删除 style 标签
+ */
+export const delCSS = (id) => {
+  if (document.getElementById(id)) {
+    document.getElementsByTagName('head').item(0).removeChild(document.getElementById(id))
+  }
+}

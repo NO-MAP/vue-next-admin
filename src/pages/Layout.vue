@@ -50,7 +50,6 @@ export default defineComponent({
   .sidebar {
     height: 100%;
     transition: 0.3s;
-    background-color: pink;
   }
 
   .layout-content {

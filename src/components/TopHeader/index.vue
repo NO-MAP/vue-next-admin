@@ -2,9 +2,11 @@
   <div class="top-header">
     <div class="left">
       <SidebarToggle />
-      <Breadcrumb />
+      <Breadcrumb style="padding-left: 10px" />
     </div>
     <div class="right">
+      <FullScreen style="padding-right: 10px" />
+      <ThemePicker style="padding-right: 10px" />
       <User />
     </div>
   </div>
@@ -16,10 +18,12 @@ import { defineComponent } from "vue";
 import Breadcrumb from "./components/Breadcrumb";
 import SidebarToggle from "./components/SidebarToggle";
 import User from "./components/User";
+import FullScreen from "./components/FullScreen";
+import ThemePicker from "./components/ThemePicker";
 
 export default defineComponent({
   name: "TopHeader",
-  components: { Breadcrumb, SidebarToggle, User },
+  components: { Breadcrumb, SidebarToggle, User, FullScreen, ThemePicker },
   setup() {},
 });
 </script>
@@ -30,7 +34,6 @@ export default defineComponent({
   padding: 0 10px;
   box-sizing: border-box;
   width: 100%;
-  background-color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -40,16 +43,13 @@ export default defineComponent({
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    .toggle {
-      padding: 10px 5px;
-      cursor: pointer;
-      i {
-        font-size: 20px;
-      }
-    }
-    .breadcrumb {
-      padding-left: 10px;
-    }
+  }
+  .right {
+    height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-end;
   }
 }
 </style>

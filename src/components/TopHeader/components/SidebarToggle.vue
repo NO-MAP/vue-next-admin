@@ -6,6 +6,7 @@
     <i class="el-icon-s-unfold"></i>
   </div>
   <el-drawer
+    custom-class="toggle-drawer"
     :title="config.stTitle"
     v-if="isMobile"
     size="250px"
@@ -18,11 +19,12 @@
 </template>
 
 <script>
-import { defineComponent, computed, ref } from "vue";
+import { defineComponent, computed, ref, watch } from "vue";
 import { useStore } from "vuex";
 import config from "@/config";
 
 import Menu from "@/components/SideBar/Menu";
+import { useRoute } from "vue-router";
 
 export default defineComponent({
   name: "SidebarToggle",
@@ -35,11 +37,16 @@ export default defineComponent({
       return collapse ? "el-icon-s-unfold" : "el-icon-s-fold";
     });
     const isMobile = computed(() => getters["app/isMobile"]);
+    const route = useRoute();
 
     const toggleSidebar = () => commit("app/TOGGLE_SIDEBAR");
     const showSidebar = () => {
       flag.value = true;
     };
+
+    watch(() => route.path, () => {
+      flag.value = false;
+    })
 
     return {
       toggleSidebar,
@@ -56,5 +63,10 @@ export default defineComponent({
 <style lang="scss" scoped>
 .toggle {
   cursor: pointer;
+  padding: 10px 5px;
+
+  i {
+    font-size: 20px;
+  }
 }
 </style>

@@ -18,7 +18,11 @@ const state = {
       unclose: true
     }
   }],
-  size: 'small'
+  size: 'small',
+  theme: getStore({ name: 'theme' }) || {
+    mainColor: "#ffffff",
+    reverseColor: "#000000"
+  }
 }
 
 const getters = {
@@ -26,7 +30,8 @@ const getters = {
   collapse: (state) => state.sidebar.collapse,
   sidebarNavs: state => state.sidebar.navs,
   tagView: state => state.tagView,
-  isMobile: state => state.isMobile
+  isMobile: state => state.isMobile,
+  theme: state => state.theme
 }
 
 const mutations = {
@@ -113,6 +118,13 @@ const mutations = {
     setStore({
       name: 'tags',
       content: state.tagView
+    })
+  },
+  SET_THEME: (state, theme) => {
+    state.theme = theme;
+    setStore({
+      name: 'theme',
+      content: theme
     })
   }
 }

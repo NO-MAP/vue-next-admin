@@ -1,5 +1,6 @@
 <template>
   <el-menu
+    class="menu"
     :collapse="collapse"
     :default-active="route.path"
     router

@@ -107,8 +107,6 @@ export default defineComponent({
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   .opra {
     height: 33px;
     width: 32px;
@@ -116,21 +114,16 @@ export default defineComponent({
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
     .opra-icon {
       display: flex;
       align-items: center;
       justify-content: center;
       height: 33px;
       width: 33px;
-      &:hover {
-        color: white;
-        background-color: pink;
-      }
     }
   }
   .list-wrap {
-    width: calc(100% - 33px);
+    width: calc(100% - 34px);
     box-sizing: border-box;
     padding: 0 10px;
     height: 100%;

@@ -51,30 +51,20 @@ export default defineComponent({
   display: flex;
   align-items: center;
   font-size: 12px;
-  border: 1px solid rgb(221, 221, 221);
   padding: 0 6px;
   cursor: pointer;
   position: relative;
   margin: 0 5px;
   flex-shrink: 0;
   &.active {
-    background-color: rgb(112, 94, 97);
-    border: 1px solid rgba(221, 221, 221, 0);
     padding-left: 14px;
-    span {
-      color: white;
-    }
     &::before {
       content: "";
       height: 8px;
       width: 8px;
       border-radius: 50%;
-      background-color: white;
       position: absolute;
       left: 4px;
-    }
-    i {
-      color: white;
     }
   }
   span {
@@ -95,8 +85,7 @@ export default defineComponent({
       display: inline-block;
     }
     &:hover {
-      background-color: pink;
-      color: rgb(0, 0, 0);
+      
       vertical-align: -3px;
     }
   }
