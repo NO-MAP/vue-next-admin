@@ -18,10 +18,13 @@ export const useSWR = async (f, SWR) => {
   }
 }
 
-export const SWR = () => {
+/**
+ * @param {any} defalutValue 默认值 
+ */
+export const SWR = (defalutValue) => {
   return reactive({
     loading: false,
-    result: null,
+    result: defalutValue || null,
     error: null
   })
 }

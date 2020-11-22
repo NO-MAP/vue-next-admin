@@ -6,6 +6,7 @@ import store from './store'
 import ElementPlus from 'element-plus';
 import './styles/reset.css'
 import 'element-plus/lib/theme-chalk/index.css';
+import locale from 'element-plus/lib/locale/lang/zh-cn'
 import './styles/element-reset.scss';
 import 'nprogress/nprogress.css'
 import './styles/theme.scss'
@@ -13,7 +14,7 @@ import './styles/theme.scss'
 import './router/router-permission'
 
 import NProgress from "nprogress/nprogress";
-NProgress.configure({showSpinner: false});
+NProgress.configure({ showSpinner: false });
 
 import dragable from "./directive/dragable"
 
@@ -29,6 +30,6 @@ app.use(store)
 
 app.use(router)
 
-app.use(ElementPlus, { size: 'mini', zIndex: 3000 })
+app.use(ElementPlus, { size: 'mini', zIndex: 3000, locale })
 
 app.mount('#app')

@@ -60,6 +60,8 @@ export default defineComponent({
     .main-container {
       width: 100%;
       height: calc(100% - 84px);
+      overflow-y: auto;
+      overflow-x: hidden;
       padding: 5px;
       box-sizing: border-box;
     }
