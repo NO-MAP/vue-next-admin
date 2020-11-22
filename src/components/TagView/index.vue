@@ -1,7 +1,11 @@
 <template>
   <div class="tag-view">
     <div class="list-wrap">
-      <div class="scrollbar-wra" id="tagScrollBar">
+      <div
+        class="scrollbar-wra"
+        :class="{ 'is-mobile': isMobile }"
+        id="tagScrollBar"
+      >
         <Tag
           v-for="item in tagView"
           :key="item.path"
@@ -33,7 +37,14 @@
 </template>
 
 <script>
-import { computed, defineComponent, onBeforeUnmount, onMounted } from "vue";
+import { IsPC } from "@/utils/tool";
+import {
+  computed,
+  defineComponent,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+} from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import Tag from "./Tag";
@@ -43,6 +54,8 @@ export default defineComponent({
   components: { Tag },
   setup() {
     const { getters, commit } = useStore();
+    const isMobile = ref("true");
+    IsPC() ? (isMobile.value = false) : (isMobile.value = true);
     const tagView = computed(() => getters["app/tagView"]);
     const route = useRoute();
 
@@ -95,6 +108,7 @@ export default defineComponent({
       tagCloseHandle,
       closeAllTag,
       closeOtherTag,
+      isMobile,
     };
   },
 });
@@ -132,12 +146,15 @@ export default defineComponent({
     .scrollbar-wra {
       scroll-snap-type: x mandatory;
       width: 100%;
-      height: 39px;
+      height: 48px;
       display: flex;
       align-items: center;
       flex-wrap: nowrap;
       overflow-x: scroll;
       overflow-y: hidden;
+      &.is-mobile {
+        height: 31px;
+      }
       .tag {
         scroll-snap-align: start;
       }
