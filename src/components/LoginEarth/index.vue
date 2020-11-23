@@ -12,6 +12,7 @@ import { computed, defineComponent, onUnmounted, ref } from "vue";
 
 export default defineComponent({
   name: "EarthWrapper",
+  emits: ["earth-mouse-move"],
   setup(props, ctx) {
     const angle = ref(0);
     const options = {

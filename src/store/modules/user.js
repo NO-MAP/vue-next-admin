@@ -3,7 +3,9 @@ import router from "@/router";
 import { removeToken, setReToken, setToken, removeReToken, getReToken } from "@/utils/auth";
 import { getStore, removeStore, setStore } from "@/utils/localStorage";
 import { generateRoutersByServiceData } from "@/utils/tool";
-import { MessageBox } from "element-plus";
+// import { MessageBox } from "element-plus";
+import MessageBox from "element-plus/lib/message-box";
+
 
 const state = {
   userInfo: getStore({ name: 'userInfo' }) || {},

@@ -26,7 +26,7 @@ export default defineComponent({
       default: false,
     },
   },
-  emit: ["select", "close"],
+  emits: ["select", "close"],
   setup(props, { emit }) {
     const selectTag = () => {
       if (props.active) return false;

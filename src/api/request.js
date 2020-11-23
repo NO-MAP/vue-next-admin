@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { getToken } from '@/utils/auth'
-import { Message } from "element-plus";
+import Message from "element-plus/lib/message";
 import NProgress from "nprogress/nprogress";
 import store from "@/store"
 
@@ -42,6 +42,7 @@ request.interceptors.response.use(
     }
   },
   async error => {
+    console.log(error)
     NProgress.done();
     let code, msg, config;
     if (error.response) {

@@ -28,7 +28,10 @@ const defaultRouters = [
       {
         path: '/home',
         name: 'Home',
-        component: Home
+        component: Home,
+        meta: {
+          title: "首页"
+        }
       }
     ]
   },

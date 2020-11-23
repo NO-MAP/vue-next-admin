@@ -10,6 +10,7 @@
 <script>
 import { defineComponent, ref, watch } from "vue";
 import { useRoute } from "vue-router";
+import config from "@/config";
 
 export default defineComponent({
   name: "Breadcrumb",
@@ -25,6 +26,7 @@ export default defineComponent({
       () => route.path,
       () => {
         generateList();
+        document.title = config.title + "-" + route.meta.title;
       },
       {
         immediate: true,

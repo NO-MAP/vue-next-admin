@@ -14,8 +14,11 @@
       color: var(--reverse);
     }
 
-    &.is-active,
     &:hover {
+      background-color: var(--reverse2);
+    }
+
+    &.is-active {
       background-color: var(--main);
       color           : var(--reverse4);
 
@@ -33,12 +36,7 @@
     }
 
     &:hover {
-      background-color: var(--main);
-      color           : var(--reverse4);
-
-      i {
-        color: var(--reverse4);
-      }
+      background-color: var(--reverse2);
     }
   }
 
@@ -58,13 +56,7 @@
       }
 
       &:hover {
-        background-color: var(--main);
-        color           : var(--reverse4);
-
-        i {
-          color: var(--reverse4);
-
-        }
+        background-color: var(--reverse2)
       }
     }
 
@@ -96,6 +88,118 @@
   }
 }
 
-.el-message-box{
+.el-message-box {
   width: 300px;
+}
+
+.el-table {
+  color           : var(--main);
+  background-color: var(--reverse4);
+
+  &--border {
+    border: 1px solid var(--reverse)
+  }
+
+  thead {
+    color: var(--main);
+  }
+
+  th,
+  tr {
+    background-color: var(--reverse4);
+  }
+
+}
+
+.el-table--border td,
+.el-table--border th,
+.el-table__body-wrapper .el-table--border.is-scrolling-left~.el-table__fixed {
+  border-right: 1px solid var(--reverse);
+}
+
+.el-table td,
+.el-table th.is-leaf {
+  border-bottom: 1px solid var(--reverse);
+}
+
+.el-table__body tr.hover-row.current-row>td,
+.el-table__body tr.hover-row.el-table__row--striped.current-row>td,
+.el-table__body tr.hover-row.el-table__row--striped>td,
+.el-table__body tr.hover-row>td {
+  background-color: var(--reverse3);
+}
+
+.el-button {
+  &--text {
+    color: var(--main);
+  }
+
+  &--primary {
+    color           : var(--reverse4);
+    background-color: var(--main);
+    border-color    : var(--reverse);
+  }
+}
+
+.el-button--primary:focus,
+.el-button--primary:hover {
+  color           : var(--reverse4);
+  background-color: var(--reverse);
+}
+
+.el-button--text:focus,
+.el-button--text:hover {
+  color: var(--reverse2);
+}
+
+.el-pagination {
+  color: var(--reverse);
+
+  &__jump,
+  &__total {
+    color: var(--main);
+  }
+}
+
+.el-pagination.is-background .btn-next,
+.el-pagination.is-background .btn-prev,
+.el-pagination.is-background .el-pager li {
+  background-color: var(--reverse3);
+}
+
+.el-pagination.is-background .btn-next.disabled,
+.el-pagination.is-background .btn-next:disabled,
+.el-pagination.is-background .btn-prev.disabled,
+.el-pagination.is-background .btn-prev:disabled,
+.el-pagination.is-background .el-pager li.disabled {
+  color: var(--reverse2);
+}
+
+.el-pagination.is-background .btn-next,
+.el-pagination.is-background .btn-prev,
+.el-pagination.is-background .el-pager li {
+  color: var(--main);
+}
+
+.el-pagination.is-background .el-pager li:not(.disabled).active {
+  background-color: var(--main);
+  color           : var(--reverse4);
+}
+
+.el-input {
+  &__inner {
+    color           : var(--main);
+    background-color: var(--reverse3);
+  }
+}
+
+.el-select .el-input__inner:focus {
+  border-color: var(--main);
+}
+
+.el-input.is-active .el-input__inner,
+.el-input__inner:focus {
+  border-color    : var(--main);
+  color           : var(--reverse3);
+  background-color: var(--main);
 }

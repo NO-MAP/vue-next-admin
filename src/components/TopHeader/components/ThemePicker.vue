@@ -3,13 +3,13 @@
     <el-color-picker
       size="mini"
       @change="pikcerChangeHandle"
-      v-model="mainColor"
+      :modelValue="mainColor"
     ></el-color-picker>
   </div>
 </template>
 
 <script>
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, onMounted } from "vue";
 
 import Color from "color";
 import { addCSS, delCSS } from "@/utils/tool";
@@ -20,9 +20,7 @@ export default defineComponent({
 
   setup() {
     const { getters, commit } = useStore();
-    const mainColor = ref("");
-
-    mainColor.value = getters["app/theme"].mainColor;
+    const mainColor = getters["app/theme"].mainColor;
 
     const generateCss = async () => {
       delCSS("themeCss");
