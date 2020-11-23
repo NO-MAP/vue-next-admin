@@ -80,7 +80,7 @@
       </el-pagination>
     </el-scrollbar>
   </div>
-  <RoleDialog ref="RoleDialog" />
+  <RoleDialog @done="getTableData" ref="RoleDialog" />
 </template>
 
 <script>

@@ -4,8 +4,9 @@
     :fullscreen="isMobile"
     :title="title"
     v-model="flag"
-    :before-close="beforeClose"
+    @close="closeHandle"
   >
+    {{ confirmData.loading }}
     <el-form
       :disabled="status == 'view'"
       ref="formRef"
@@ -22,19 +23,24 @@
       </el-form-item>
     </el-form>
     <template #footer v-if="status != 'view'">
-      <el-button type="text">重置</el-button>
-      <el-button type="primary">确定</el-button>
+      <el-button type="text" @click="resetForm">重置</el-button>
+      <el-button type="primary" :loading="confirmData.loading" @click="confirm"
+        >确定</el-button
+      >
     </template>
   </el-dialog>
 </template>
 
 <script>
+import { addRole, editRole } from "@/api/role";
+import { SWR, useSWR } from "@/hooks/useSWR";
 import { computed, defineComponent, reactive, ref } from "vue";
 import { useStore } from "vuex";
 
 export default defineComponent({
   name: "RoleDialog",
-  setup() {
+  emits: ["done"],
+  setup(props, { emit }) {
     const { getters } = useStore();
     const flag = ref(false);
     const status = ref("view");
@@ -82,9 +88,26 @@ export default defineComponent({
       status.value = val;
     };
 
-    const beforeClose = (done) => {
+    const closeHandle = () => {
       resetForm();
-      done();
+    };
+
+    const confirmData = SWR();
+
+    const confirm = async () => {
+      const { id, roleName, roleCode } = form;
+      if (status.value == "add") {
+        await useSWR(addRole({ roleName, roleCode }), confirmData);
+        emit("done");
+        flag.value = false;
+      }
+      if (status.value == "edit") {
+        await useSWR(editRole({ id, roleName, roleCode }), confirmData);
+        if (confirmData.result) {
+          emit("done");
+          flag.value = false;
+        }
+      }
     };
 
     return {
@@ -99,7 +122,9 @@ export default defineComponent({
       setForm,
       resetForm,
       setStatus,
-      beforeClose
+      closeHandle,
+      confirm,
+      confirmData,
     };
   },
 });

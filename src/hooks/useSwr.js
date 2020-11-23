@@ -6,7 +6,9 @@ import { reactive } from 'vue'
  */
 export const useSWR = async (f, SWR) => {
   if (f && SWR) {
+    console.log(SWR.loading)
     SWR.loading = true;
+    console.log(SWR.loading)
     try {
       SWR.result = await f;
     } catch (error) {
