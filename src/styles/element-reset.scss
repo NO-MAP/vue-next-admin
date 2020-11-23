@@ -203,3 +203,22 @@
   color           : var(--reverse3);
   background-color: var(--main);
 }
+
+.el-dialog {
+  background-color: var(--reverse4);
+
+  .el-dialog__title {
+    color    : var(--main);
+    font-size: 14px;
+  }
+
+  .el-dialog__headerbtn .el-dialog__close {
+    color: var(--main);
+  }
+}
+
+.el-form {
+  .el-form-item__label {
+    color: var(--main);
+  }
+}

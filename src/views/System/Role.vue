@@ -59,7 +59,7 @@
           ></el-button>
         </template>
         <template v-slot="scope">
-          <el-button @click="showHandle(scope.row)" type="text">查看</el-button>
+          <el-button @click="viewHanle(scope.row)" type="text">查看</el-button>
           <el-button type="text">编辑</el-button>
           <el-button type="text" class="danger">删除</el-button>
         </template>
@@ -114,12 +114,16 @@ export default defineComponent({
       );
     };
 
-    const showHandle = (row) => {
-      console.log(row);
+    const viewHanle = (row) => {
+      const _RoleDialog = RoleDialog.value;
+      _RoleDialog.setStatus("view");
+      _RoleDialog.setForm(row);
+      _RoleDialog.show();
     };
 
     const addHandle = () => {
       const _RoleDialog = RoleDialog.value;
+      _RoleDialog.setStatus("add");
       _RoleDialog.show();
     };
 
@@ -129,7 +133,7 @@ export default defineComponent({
       pageParams,
       tableData,
       getTableData,
-      showHandle,
+      viewHanle,
       addHandle,
       RoleDialog,
     };
