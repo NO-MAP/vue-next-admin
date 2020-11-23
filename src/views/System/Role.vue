@@ -59,8 +59,8 @@
           ></el-button>
         </template>
         <template v-slot="scope">
-          <el-button @click="viewHanle(scope.row)" type="text">查看</el-button>
-          <el-button type="text">编辑</el-button>
+          <el-button @click="viewHandle(scope.row)" type="text">查看</el-button>
+          <el-button @click="editHandle(scope.row)" type="text">编辑</el-button>
           <el-button type="text" class="danger">删除</el-button>
         </template>
       </el-table-column>
@@ -114,7 +114,7 @@ export default defineComponent({
       );
     };
 
-    const viewHanle = (row) => {
+    const viewHandle = (row) => {
       const _RoleDialog = RoleDialog.value;
       _RoleDialog.setStatus("view");
       _RoleDialog.setForm(row);
@@ -127,15 +127,23 @@ export default defineComponent({
       _RoleDialog.show();
     };
 
+    const editHandle = (row) => {
+      const _RoleDialog = RoleDialog.value;
+      _RoleDialog.setStatus("edit");
+      _RoleDialog.setForm(row);
+      _RoleDialog.show();
+    };
+
     getTableData();
 
     return {
       pageParams,
       tableData,
       getTableData,
-      viewHanle,
+      viewHandle,
       addHandle,
       RoleDialog,
+      editHandle,
     };
   },
 });

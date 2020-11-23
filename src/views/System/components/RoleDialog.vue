@@ -4,6 +4,7 @@
     :fullscreen="isMobile"
     :title="title"
     v-model="flag"
+    :before-close="beforeClose"
   >
     <el-form
       :disabled="status == 'view'"
@@ -81,6 +82,11 @@ export default defineComponent({
       status.value = val;
     };
 
+    const beforeClose = (done) => {
+      resetForm();
+      done();
+    };
+
     return {
       flag,
       status,
@@ -93,6 +99,7 @@ export default defineComponent({
       setForm,
       resetForm,
       setStatus,
+      beforeClose
     };
   },
 });
