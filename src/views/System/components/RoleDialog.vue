@@ -98,15 +98,13 @@ export default defineComponent({
       const { id, roleName, roleCode } = form;
       if (status.value == "add") {
         await useSWR(addRole({ roleName, roleCode }), confirmData);
-        emit("done");
-        flag.value = false;
       }
       if (status.value == "edit") {
         await useSWR(editRole({ id, roleName, roleCode }), confirmData);
-        if (confirmData.result) {
-          emit("done");
-          flag.value = false;
-        }
+      }
+      if (confirmData.success) {
+        emit("done");
+        flag.value = false;
       }
     };
 

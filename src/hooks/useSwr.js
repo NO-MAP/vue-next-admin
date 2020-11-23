@@ -6,13 +6,15 @@ import { reactive } from 'vue'
  */
 export const useSWR = async (f, SWR) => {
   if (f && SWR) {
-    console.log(SWR.loading)
+    // console.log(SWR.loading)
     SWR.loading = true;
-    console.log(SWR.loading)
+    // console.log(SWR.loading)
     try {
       SWR.result = await f;
+      SWR.success = true;
     } catch (error) {
       SWR.error = error;
+      SWR.success = false;
     } finally {
       SWR.loading = false;
     }
@@ -27,6 +29,7 @@ export const SWR = (defalutValue) => {
   return reactive({
     loading: false,
     result: defalutValue || null,
-    error: null
+    error: null,
+    success: false
   })
 }
