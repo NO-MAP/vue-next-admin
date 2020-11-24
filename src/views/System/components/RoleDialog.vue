@@ -12,7 +12,7 @@
       ref="formRef"
       label-position="left"
       label-width="80px"
-      :modle="form"
+      :model="form"
       :rules="rules"
     >
       <el-form-item prop="roleName" label="角色名称">
