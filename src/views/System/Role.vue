@@ -79,7 +79,7 @@
         @current-change="getTableData"
         v-model:currentPage="pageParams.current"
         v-model:pageSize="pageParams.size"
-        :total="100"
+        :total="tableData.result.total"
       >
       </el-pagination>
     </el-scrollbar>

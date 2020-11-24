@@ -5,6 +5,7 @@
     :title="title"
     v-model="flag"
     @close="closeHandle"
+    width="600px"
   >
     <el-form
       :disabled="status == 'view'"
