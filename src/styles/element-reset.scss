@@ -222,3 +222,60 @@
     color: var(--main);
   }
 }
+
+.el-dropdown-menu {
+  background-color: var(--reverse3);
+
+  &__item {
+    color: var(--main);
+  }
+}
+
+.el-dropdown-menu__item--divided {
+  border-top: 1px solid var(--main);
+}
+
+.el-dropdown-menu__item--divided:before {
+  background-color: var(--main);
+}
+
+.el-dropdown__popper[role=tooltip].is-light[role=tooltip] .el-popper__arrow::before {
+  border          : 1px solid var(--main);
+  background-color: var(--reverse3);
+}
+
+.el-dropdown__popper[role=tooltip].is-light[role=tooltip] {
+  border: 1px solid var(--reverse);
+}
+
+.el-dropdown-menu__item:focus,
+.el-dropdown-menu__item:not(.is-disabled):hover {
+  background-color: var(--reverse);
+  color           : var(--main);
+}
+
+.el-popper.is-light {
+  background-color: var(--reverse3);
+  color           : var(--main);
+}
+
+.el-popper.is-light .el-popper__arrow::before {
+  background-color: var(--reverse3);
+}
+
+.el-message-box {
+  background-color: var(--reverse4);
+  border          : 1px solid var(--reverse4);
+
+  &__title {
+    color: var(--main);
+  }
+
+  .el-message-box__headerbtn .el-message-box__close {
+    color: var(--main);
+  }
+
+  .el-message-box__content {
+    color: var(--main);
+  }
+}

@@ -61,7 +61,11 @@
         <template v-slot="scope">
           <el-button @click="viewHandle(scope.row)" type="text">查看</el-button>
           <el-button @click="editHandle(scope.row)" type="text">编辑</el-button>
-          <el-button type="text" class="danger">删除</el-button>
+          <el-popconfirm title="确定删除吗？" @confirm="delHandle(scope.row)">
+            <template #reference>
+              <el-button type="text" class="danger">删除</el-button>
+            </template>
+          </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>
@@ -86,7 +90,7 @@
 <script>
 import { SWR, useSWR } from "@/hooks/useSWR";
 import { defineComponent, reactive, ref } from "vue";
-import { getRolesPage } from "@/api/role";
+import { delRole, getRolesPage } from "@/api/role";
 import RoleDialog from "./components/RoleDialog";
 
 export default defineComponent({
@@ -133,6 +137,10 @@ export default defineComponent({
       _RoleDialog.setForm(row);
       _RoleDialog.show();
     };
+    const delHandle = async (row) => {
+      await delRole(row.id);
+      getTableData();
+    };
 
     getTableData();
 
@@ -144,6 +152,7 @@ export default defineComponent({
       addHandle,
       RoleDialog,
       editHandle,
+      delHandle,
     };
   },
 });

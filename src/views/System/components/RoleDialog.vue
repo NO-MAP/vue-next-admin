@@ -6,7 +6,6 @@
     v-model="flag"
     @close="closeHandle"
   >
-    {{ confirmData.loading }}
     <el-form
       :disabled="status == 'view'"
       ref="formRef"

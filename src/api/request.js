@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { getToken } from '@/utils/auth'
-import Message from "element-plus/lib/message";
+import Message from "element-plus/lib/el-message";
+// import { Message } from "element-plus";
 import NProgress from "nprogress/nprogress";
 import store from "@/store"
 
