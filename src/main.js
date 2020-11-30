@@ -1,12 +1,12 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import ElementPlus from 'element-plus';
+import locale from 'element-plus/lib/locale/lang/zh-cn'
+import './registerServiceWorker'
 import './styles/reset.css'
 import 'element-plus/lib/theme-chalk/index.css';
-import locale from 'element-plus/lib/locale/lang/zh-cn'
 import './styles/element-reset.scss';
 import 'nprogress/nprogress.css'
 import './styles/theme.scss'

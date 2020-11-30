@@ -3,7 +3,7 @@ import router from "@/router";
 import { removeToken, setReToken, setToken, removeReToken, getReToken } from "@/utils/auth";
 import { getStore, removeStore, setStore } from "@/utils/localStorage";
 import { generateRoutersByServiceData } from "@/utils/tool";
-import MessageBox from "element-plus/lib/el-message-box";
+import { ElMessageBox } from "element-plus";
 
 
 const state = {
@@ -66,7 +66,7 @@ const actions = {
     return data
   },
   logout: async ({ commit }) => {
-    await MessageBox.confirm('此操作将退出系统, 是否继续?', '提示', {
+    await ElMessageBox.confirm('此操作将退出系统, 是否继续?', '提示', {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
       type: 'warning'

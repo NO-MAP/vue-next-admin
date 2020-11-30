@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { getToken } from '@/utils/auth'
-import Message from "element-plus/lib/el-message";
-// import { Message } from "element-plus";
+import { ElMessage } from "element-plus";
 import NProgress from "nprogress/nprogress";
 import store from "@/store"
 
@@ -29,7 +28,7 @@ request.interceptors.response.use(
   response => {
     const res = response.data
     if (res.code !== 200) {
-      Message({
+      ElMessage({
         message: res.message || 'Error',
         type: 'error',
         duration: 5 * 1000
@@ -61,7 +60,7 @@ request.interceptors.response.use(
       const res = await refreshToken(config)
       return res;
     } else {
-      Message({
+      ElMessage({
         message: code + '--' + msg,
         type: 'error',
         duration: 5 * 1000

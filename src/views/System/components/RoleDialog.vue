@@ -4,7 +4,7 @@
     :fullscreen="isMobile"
     :title="title"
     v-model="flag"
-    @close="closeHandle"
+    :before-close="beforeCloseHandle"
     width="600px"
   >
     <el-form
@@ -88,8 +88,9 @@ export default defineComponent({
       status.value = val;
     };
 
-    const closeHandle = () => {
+    const beforeCloseHandle = (done) => {
       resetForm();
+      done();
     };
 
     const confirmData = SWR();
@@ -120,7 +121,7 @@ export default defineComponent({
       setForm,
       resetForm,
       setStatus,
-      closeHandle,
+      beforeCloseHandle,
       confirm,
       confirmData,
     };
