@@ -1,64 +1,94 @@
 export const routers = [
   {
-    title: '网站',
     name: 'Website',
-    icon: 'el-icon-grape',
-    path: '/WebSite',
+    path: '/webSite',
+    component: '/WebSite',
+    meta: {
+      title: '网站',
+      icon: 'el-icon-grape',
+    }
   }, {
-    title: '文章',
     name: 'Article',
-    icon: 'el-icon-notebook-2',
-    path: '/Article',
-    redirect: '/Article/Manager',
+    path: '/article',
+    component: '/Article',
+    redirect: '/article/manager',
+    meta: {
+      title: '文章',
+      icon: 'el-icon-notebook-2',
+    },
     children: [
       {
-        title: '总览',
         name: 'ArticleManager',
-        icon: 'el-icon-notebook-1',
-        path: '/Article/Manager',
+        path: '/article/manager',
+        component: '/Article/Manager',
+        meta: {
+          title: '总览',
+          icon: 'el-icon-notebook-1',
+        }
       }, {
-        title: '详情',
         name: 'ArticleDetail',
-        icon: 'el-icon-chat',
-        path: '/Article/Detail',
-        hide: true
+        path: '/article/detail',
+        component: '/Article/Detail',
+        meta: {
+          title: '详情',
+          icon: 'el-icon-chat',
+          hide: true,
+        }
       }, {
-        title: '写文',
         name: 'ArticleNew',
-        icon: 'el-icon-sugar',
-        path: '/Article/New',
-        hide: true
+        path: '/article/new',
+        component: '/Article/New',
+        meta: {
+          title: '写文',
+          icon: 'el-icon-sugar',
+          hide: true,
+        }
       }
     ]
   }, {
-    title: '系统',
     name: 'System',
-    icon: 'el-icon-ship',
-    path: '/System',
-    redirect: '/System/User',
+    path: '/system',
+    component: '/System',
+    redirect: '/system/user',
+    meta: {
+      title: '系统',
+      icon: 'el-icon-ship',
+    },
     children: [
       {
-        title: '角色',
         name: 'SystemRole',
-        icon: 'el-icon-menu',
-        path: '/System/Role',
+        path: '/system/role',
+        component: '/System/Role',
+        meta: {
+          title: '角色',
+          icon: 'el-icon-menu',
+        }
       }, {
-        title: '用户',
         name: 'SystemUser',
-        icon: 'el-icon-user',
-        path: '/System/User',
+        path: '/system/user',
+        component: '/System/User',
+        meta: {
+          title: '用户',
+          icon: 'el-icon-user',
+        }
       }, {
-        title: '菜单',
         name: 'SystemMenu',
-        icon: 'el-icon-menu',
-        path: '/System/Menu',
+        path: '/system/menu',
+        component: '/System/Menu',
+        meta: {
+          title: '菜单',
+          icon: 'el-icon-menu',
+        }
       }
     ]
   }, {
-    title: '个人中心',
     name: 'UserCenter',
-    icon: 'el-icon-user',
-    path: '/UserCenter',
-    hide: true,
+    path: '/usercenter',
+    component: '/UserCenter',
+    meta: {
+      title: '个人中心',
+      icon: 'el-icon-user',
+      hide: true,
+    }
   }
 ]

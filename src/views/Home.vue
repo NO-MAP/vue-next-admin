@@ -12,7 +12,7 @@
 import HelloWorld from "@/components/HelloWorld.vue";
 
 // api
-import { hello } from "@/api/user";
+import { hello } from "@/api/login";
 import { defineComponent } from "vue";
 import { SWR, useSWR } from "@/hooks/useSWR";
 

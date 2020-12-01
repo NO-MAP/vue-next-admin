@@ -32,22 +32,22 @@ export const generateRoutersByServiceData = (routes) => {
 
   for (let route of routes) {
     const data = {
-      path: route.path.toLocaleLowerCase(),
+      path: route.path,
       name: route.name,
       meta: {
-        icon: route.icon,
-        title: route.title
+        title: route.meta.title,
+        icon: route.meta.icon,
       },
     }
     if (route.redirect) {
-      data.redirect = route.redirect.toLocaleLowerCase();
+      data.redirect = route.redirect;
     }
 
     if (route.children) {
       data.component = () => import('@/pages/ParentView')
       data.children = generateRoutersByServiceData(route.children)
     } else {
-      data.component = () => import('@/views' + route.path)
+      data.component = () => import('@/views' + route.component)
     }
     result.push(data)
   }
@@ -96,12 +96,12 @@ export const delCSS = (id) => {
 /**
  * @description 判断设备是否为pc
  */
-export const IsPC = () => {  
+export const IsPC = () => {
   var userAgentInfo = navigator.userAgent;
-  var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");  
-  var flag = true;  
-  for (var v = 0; v < Agents.length; v++) {  
-      if (userAgentInfo.indexOf(Agents[v]) > 0) { flag = false; break; }  
-  }  
-  return flag;  
+  var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");
+  var flag = true;
+  for (var v = 0; v < Agents.length; v++) {
+    if (userAgentInfo.indexOf(Agents[v]) > 0) { flag = false; break; }
+  }
+  return flag;
 }

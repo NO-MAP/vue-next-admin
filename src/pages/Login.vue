@@ -66,7 +66,7 @@ import LoginEarth from "@/components/LoginEarth";
 import { computed, defineComponent, reactive, ref } from "vue";
 import { useStore } from "vuex";
 import { useSWR, SWR } from "@/hooks/useSWR";
-import { login } from "@/api/user";
+import { login } from "@/api/login";
 import { useRoute, useRouter } from "vue-router";
 
 export default defineComponent({

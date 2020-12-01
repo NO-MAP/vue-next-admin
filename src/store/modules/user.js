@@ -1,4 +1,4 @@
-import { getRouters, refreshToken } from "@/api/user";
+import { getRouters, refreshToken } from "@/api/login";
 import router from "@/router";
 import { removeToken, setReToken, setToken, removeReToken, getReToken } from "@/utils/auth";
 import { getStore, removeStore, setStore } from "@/utils/localStorage";

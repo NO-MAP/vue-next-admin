@@ -1,34 +1,30 @@
 import request from "./request";
-import { routers } from "./temp";
 
-export const login = (data) => request({
-  url: "/api/auth/v1/login",
+export const getUserPage = (params) => request({
+  url: '/api/system/v1/sysUser/page',
+  method: 'get',
+  params
+})
+
+export const addUser = (data) => request({
+  url: '/api/system/v1/sysUser',
   method: 'post',
   data
 })
 
-export const refreshToken = (token) => request({
-  url: "/api/auth/v1/refreshToken",
-  method: 'get',
-  params: {
-    token
-  }
+export const editUser = (data) => request({
+  url: '/api/system/v1/sysUser',
+  method: 'put',
+  data
 })
 
-export const getRouters = () => {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(routers)
-    }, 800);
-  })
-}
-
-export const hello = () => request({
-  url: "/api/system/hello",
-  method: 'get'
+export const delUser = (id) => request({
+  url: `/api/system/v1/sysUser/${id}`,
+  method: 'delete'
 })
 
-export const loginOut = () => request({
-  url: "/api/auth/logout",
-  method: 'get',
+export const changePassword = (data) => request({
+  url: '/api/system/v1/sysUser/changePassword',
+  method: 'put',
+  data
 })
