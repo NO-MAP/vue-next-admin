@@ -1,6 +1,6 @@
-import { getRouters, refreshToken } from "@/api/login";
+import { getRouters, getProfile } from "@/api/login";
 import router from "@/router";
-import { removeToken, setReToken, setToken, removeReToken, getReToken } from "@/utils/auth";
+import { removeToken, setToken } from "@/utils/auth";
 import { getStore, removeStore, setStore } from "@/utils/localStorage";
 import { generateRoutersByServiceData } from "@/utils/tool";
 import { ElMessageBox } from "element-plus";
@@ -14,26 +14,26 @@ const state = {
 
 const getters = {
   userInfo: state => state.userInfo,
-  roleInfo: state => state.userInfo.sysRoleInfo,
+  roleInfo: state => state.userInfo.roles,
   navRoutes: state => state.navRoutes,
   navLoading: state => state.navLoading
 }
 
 const mutations = {
+  SET_TOKEN: (state, data) => {
+    const token = data.access_token;
+    setToken(token);
+  },
   SET_USERINFO: (state, data) => {
-    const { token, userInfo } = data;
-    state.userInfo = userInfo;
-    setToken(token.access_token);
-    setReToken(token.refresh_token)
+    state.userInfo = data;
     setStore({
       name: 'userInfo',
-      content: userInfo
+      content: data
     })
   },
   CLEAR_USERINFO: (state) => {
     state.userInfo = {};
     removeToken()
-    removeReToken()
     removeStore({ name: 'userInfo' })
   },
   SET_NAVS: (state, data) => {
@@ -48,11 +48,11 @@ const mutations = {
 }
 
 const actions = {
-  refreshToken: async () => {
-    const data = await refreshToken(getReToken());
-    setToken(data.access_token);
-    setReToken(data.refresh_token)
-    return data;
+  GET_USERINFO: async ({ commit }) => {
+    const userInfo = await getProfile();
+    commit("SET_USERINFO", userInfo)
+    console.log("GET_USERINFO")
+    return true
   },
   generateRouters: async ({ commit }) => {
     commit("NAV_LOADING")

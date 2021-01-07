@@ -1,8 +1,8 @@
 <template>
   <div class="content">
     <el-table
-      :loading="tableData.loading"
-      :data="tableData.result.records"
+      v-loading="tableData.loading"
+      :data="tableData.result"
       size="mini"
       fit
       border
@@ -16,6 +16,7 @@
       ></el-table-column>
       <el-table-column
         prop="roleName"
+        width="200"
         label="角色名称"
         align="center"
       ></el-table-column>
@@ -26,17 +27,24 @@
         align="center"
       ></el-table-column>
       <el-table-column
-        prop="cereateTime"
-        width="300"
-        label="创建时间"
+        prop="description"
+        label="角色描述"
         align="center"
       ></el-table-column>
-      <el-table-column
-        prop="updateTime"
-        width="300"
-        label="更新时间"
-        align="center"
-      ></el-table-column>
+      <el-table-column width="300" label="创建时间" align="center">
+        <template v-slot="scope">
+          <span>{{
+            $filters.format(scope.row.createDate, "YYYY-MM-DD HH:mm:ss")
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column width="300" label="更新时间" align="center">
+        <template v-slot="scope">
+          <span>{{
+            $filters.format(scope.row.updateDate, "YYYY-MM-DD HH:mm:ss")
+          }}</span>
+        </template>
+      </el-table-column>
       <el-table-column width="150" fixed="right" align="center">
         <template #header>
           <span>操作</span>
@@ -70,27 +78,13 @@
       </el-table-column>
     </el-table>
   </div>
-  <div class="page">
-    <el-scrollbar>
-      <el-pagination
-        background
-        layout="prev, pager, next, sizes, jumper, total"
-        @size-change="getTableData"
-        @current-change="getTableData"
-        v-model:currentPage="pageParams.current"
-        v-model:pageSize="pageParams.size"
-        :total="tableData.result.total"
-      >
-      </el-pagination>
-    </el-scrollbar>
-  </div>
   <RoleDialog @done="getTableData" ref="RoleDialog" />
 </template>
 
 <script>
 import { SWR, useSWR } from "@/hooks/useSWR";
-import { defineComponent, reactive, ref } from "vue";
-import { delRole, getRolesPage } from "@/api/role";
+import { defineComponent, ref } from "vue";
+import { delRole, getRolesList } from "@/api/role";
 import RoleDialog from "./components/RoleDialog";
 
 export default defineComponent({
@@ -98,24 +92,11 @@ export default defineComponent({
   components: { RoleDialog },
   setup() {
     const RoleDialog = ref(null);
-    const pageParams = reactive({
-      current: 0,
-      size: 15,
-    });
 
-    const tableData = SWR({
-      records: [],
-      total: 0,
-    });
+    const tableData = SWR([]);
 
     const getTableData = async () => {
-      await useSWR(
-        getRolesPage({
-          pageNum: pageParams.current,
-          pageSize: pageParams.size,
-        }),
-        tableData
-      );
+      await useSWR(getRolesList(), tableData);
     };
 
     const viewHandle = (row) => {
@@ -137,6 +118,7 @@ export default defineComponent({
       _RoleDialog.setForm(row);
       _RoleDialog.show();
     };
+
     const delHandle = async (row) => {
       await delRole(row.id);
       getTableData();
@@ -145,7 +127,6 @@ export default defineComponent({
     getTableData();
 
     return {
-      pageParams,
       tableData,
       getTableData,
       viewHandle,
@@ -160,17 +141,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .content {
-  height: calc(100% - 50px);
+  height: 100%;
   box-sizing: border-box;
   padding: 5px;
-}
-
-.page {
-  height: 50px;
-  width: 100%;
-  overflow-x: auto;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
 }
 </style>

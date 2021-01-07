@@ -1,5 +1,5 @@
 import router from "./index";
-import { getReToken, getToken } from "@/utils/auth"
+import { getToken } from "@/utils/auth"
 import NProgress from "nprogress/nprogress";
 import store from "@/store";
 
@@ -13,8 +13,7 @@ const isWhite = (name) => whiteList.indexOf(name) != -1
 
 router.beforeEach(async (to) => {
   const token = getToken();
-  const reToken = getReToken();
-  const tokenFlag = !!(token && reToken)
+  const tokenFlag = !!token
   NProgress.start();
 
   const { dispatch, getters } = store;

@@ -73,7 +73,7 @@ export default defineComponent({
   name: "Login",
   components: { LoginEarth },
   setup() {
-    const { getters, commit } = useStore();
+    const { getters, commit, dispatch } = useStore();
     const router = useRouter();
     const route = useRoute();
     const ref_form = ref(null);
@@ -97,14 +97,15 @@ export default defineComponent({
         if (valid) {
           await useSWR(
             login({
-              username: form.username,
+              userName: form.username,
               password: form.password,
             }),
             loginData
           );
           const { result } = loginData;
           if (result) {
-            commit("user/SET_USERINFO", result);
+            commit("user/SET_TOKEN", result);
+            await dispatch("user/GET_USERINFO");
             const { redirect } = route.query;
             if (redirect) {
               router.push({ path: redirect });

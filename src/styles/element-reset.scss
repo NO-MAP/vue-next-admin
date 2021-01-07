@@ -217,6 +217,19 @@
   background-color: var(--main);
 }
 
+.el-textarea{
+  &__inner{
+    color           : var(--main);
+    background-color: var(--reverse3);
+    &:focus {
+      border-color    : var(--main);
+      color           : var(--reverse3);
+      background-color: var(--main);
+    }
+  }
+
+}
+
 .el-dialog {
   background-color: var(--reverse4);
 
@@ -233,6 +246,11 @@
 .el-form {
   .el-form-item__label {
     color: var(--main);
+  }
+  .el-form-item__content{
+    span,p{
+      color: var(--reverse);
+    }
   }
 }
 
@@ -290,5 +308,13 @@
 
   .el-message-box__content {
     color: var(--main);
+  }
+}
+
+.el-loading-mask{
+  background-color: var(--reverse3);
+
+  .el-loading-spinner .path{
+    stroke: var(--main)
   }
 }

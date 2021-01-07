@@ -2,17 +2,14 @@ import request from "./request";
 import { routers } from "./temp";
 
 export const login = (data) => request({
-  url: "/api/auth/v1/login",
+  url: "/api/v1/auth/login",
   method: 'post',
   data
 })
 
-export const refreshToken = (token) => request({
-  url: "/api/auth/v1/refreshToken",
-  method: 'get',
-  params: {
-    token
-  }
+export const getProfile = () => request({
+  url: "/api/v1/auth/profile",
+  method: 'get'
 })
 
 export const getRouters = () => {

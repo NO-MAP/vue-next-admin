@@ -3,13 +3,13 @@
     <el-color-picker
       size="mini"
       @change="pikcerChangeHandle"
-      :modelValue="mainColor"
+      :value="mainColor"
     ></el-color-picker>
   </div>
 </template>
 
 <script>
-import { defineComponent, onMounted } from "vue";
+import { computed, defineComponent, onMounted } from "vue";
 
 import Color from "color";
 import { addCSS, delCSS } from "@/utils/tool";
@@ -20,7 +20,7 @@ export default defineComponent({
 
   setup() {
     const { getters, commit } = useStore();
-    const mainColor = getters["app/theme"].mainColor;
+    const mainColor = computed(() => getters["app/theme"].mainColor);
 
     const generateCss = async () => {
       delCSS("themeCss");
@@ -47,13 +47,14 @@ export default defineComponent({
       const _Color = Color(val);
       const isLight = _Color.isLight();
       const mixColor = isLight ? Color("#291415") : Color("#ffeaeb");
-      const reverseColor = _Color.mix(mixColor, 0.2).string();
+      const mainColor = _Color.mix(mixColor, 0.7).string();
+      const reverseColor = _Color.mix(mixColor, 0.6).string();
       const reverseColor2 = _Color.mix(mixColor, 0.4).string();
-      const reverseColor3 = _Color.mix(mixColor, 0.6).string();
-      const reverseColor4 = _Color.mix(mixColor, 0.7).string();
+      const reverseColor3 = _Color.mix(mixColor, 0.2).string();
+      const reverseColor4 = _Color.mix(mixColor, 0.1).string();
 
       const theme = {
-        mainColor: val,
+        mainColor,
         isLight,
         isDark: !isLight,
         reverseColor,

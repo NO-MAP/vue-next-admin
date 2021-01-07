@@ -14,12 +14,23 @@
       label-width="80px"
       :model="form"
       :rules="rules"
+      label-suffix=":"
     >
       <el-form-item prop="roleName" label="角色名称">
-        <el-input v-model="form.roleName"></el-input>
+        <el-input v-model="form.roleName" v-if="status != 'view'"></el-input>
+        <span v-else>{{ form.roleName }}</span>
       </el-form-item>
       <el-form-item prop="roleCode" label="角色编码">
-        <el-input v-model="form.roleCode"></el-input>
+        <el-input v-model="form.roleCode" v-if="status != 'view'"></el-input>
+        <span v-else>{{ form.roleCode }}</span>
+      </el-form-item>
+      <el-form-item prop="description" label="角色描述">
+        <el-input
+          type="textarea"
+          v-model="form.description"
+          v-if="status != 'view'"
+        ></el-input>
+        <span v-else>{{ form.description }}</span>
       </el-form-item>
     </el-form>
     <template #footer v-if="status != 'view'">
@@ -49,6 +60,7 @@ export default defineComponent({
       id: "",
       roleName: "",
       roleCode: "",
+      description: "",
     });
     const rules = [];
 
@@ -76,12 +88,13 @@ export default defineComponent({
     };
 
     const resetForm = () => {
+      formRef.value.resetFields();
       setForm({
         id: "",
         roleName: "",
         roleCode: "",
+        description: "",
       });
-      formRef.value.resetFields();
     };
 
     const setStatus = (val) => {
@@ -96,12 +109,15 @@ export default defineComponent({
     const confirmData = SWR();
 
     const confirm = async () => {
-      const { id, roleName, roleCode } = form;
+      const { id, roleName, roleCode, description } = form;
       if (status.value == "add") {
-        await useSWR(addRole({ roleName, roleCode }), confirmData);
+        await useSWR(addRole({ roleName, roleCode, description }), confirmData);
       }
       if (status.value == "edit") {
-        await useSWR(editRole({ id, roleName, roleCode }), confirmData);
+        await useSWR(
+          editRole({ id, roleName, roleCode, description }),
+          confirmData
+        );
       }
       if (confirmData.success) {
         emit("done");

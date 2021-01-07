@@ -17,6 +17,7 @@ import NProgress from "nprogress/nprogress";
 NProgress.configure({ showSpinner: false });
 
 import dragable from "./directive/dragable"
+import dayjs from 'dayjs';
 
 const app = createApp(App)
 
@@ -31,5 +32,11 @@ app.use(store)
 app.use(router)
 
 app.use(ElementPlus, { size: 'mini', zIndex: 3000, locale })
+
+app.config.globalProperties.$filters = {
+  format(value, formatStr) {
+    return dayjs(value).format(formatStr)
+  }
+}
 
 app.mount('#app')

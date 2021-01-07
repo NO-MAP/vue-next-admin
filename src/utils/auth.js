@@ -22,18 +22,9 @@ export const removeToken = () => {
   Cookies.remove(TOKEN_KEY)
 }
 
-export const setReToken = (reToken) => {
-  Cookies.set(RE_TOKEN_KEY, reToken, {
-    expires: cookieExpires || 1
-  })
-}
 
 export const getReToken = () => {
   const token = Cookies.get(RE_TOKEN_KEY)
   if (token) return token
   else return false
-}
-
-export const removeReToken = () => {
-  Cookies.remove(RE_TOKEN_KEY)
 }

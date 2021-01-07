@@ -3,9 +3,11 @@ import { getToken } from '@/utils/auth'
 import { ElMessage } from "element-plus";
 import NProgress from "nprogress/nprogress";
 import store from "@/store"
+import router from '@/router';
+import Message from 'element-plus/lib/el-message';
 
 const request = axios.create({
-  baseURL: "",
+  baseURL: "http://localhost:8000",
   timeout: 50000
 })
 
@@ -26,42 +28,44 @@ request.interceptors.request.use(
 
 request.interceptors.response.use(
   response => {
-    const res = response.data
-    if (res.code !== 200) {
+    console.log(response)
+    if (response.status !== 200 && response.status !== 201) {
       ElMessage({
-        message: res.message || 'Error',
+        message: response.data.message || 'Error',
         type: 'error',
         duration: 5 * 1000
       })
 
       NProgress.done();
-      return Promise.reject(new Error(res.message || 'Error'))
+      return Promise.reject(new Error(response.message || 'Error'))
     } else {
       NProgress.done();
-      return res.result;
+      return response.data;
     }
   },
-  async error => {
+  error => {
     console.log(error)
     NProgress.done();
-    let code, msg, config;
+    let code, msg;
     if (error.response) {
-      const errResponse = error.response;
-      code = errResponse.status;
-      msg = errResponse.statusText;
-      config = errResponse.config;
+      console.log(error.response.data)
+      const errResponse = error.response.data;
+      code = errResponse.statusCode;
+      msg = errResponse.message;
     } else {
-      config = error.config;
       code = 500;
       msg = "服务错误";
     }
     if (code === 401) {
       // 鉴权失败
-      const res = await refreshToken(config)
-      return res;
+      store.commit("user/CLEAR_USERINFO");
+      Message.warning("登录状态失效，请重新登录")
+      router.replace({
+        name: 'Login'
+      })
     } else {
       ElMessage({
-        message: code + '--' + msg,
+        message: code + ' | ' + msg,
         type: 'error',
         duration: 5 * 1000
       })
@@ -71,13 +75,5 @@ request.interceptors.response.use(
   }
 )
 
-async function refreshToken(config) {
-  await store.dispatch('user/refreshToken')
-  const token = getToken();
-  config.headers['Authorization'] = `Bearer ${token}`
-
-  const res = await axios.request(config)
-  return res.data.result
-}
 
 export default request
