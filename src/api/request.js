@@ -28,7 +28,6 @@ request.interceptors.request.use(
 
 request.interceptors.response.use(
   response => {
-    console.log(response)
     if (response.status !== 200 && response.status !== 201) {
       ElMessage({
         message: response.data.message || 'Error',

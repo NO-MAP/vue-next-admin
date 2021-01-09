@@ -24,7 +24,7 @@
                   class="login-input"
                 >
                   <template #prefix>
-                    <i class="el-icon-user">&#xe612;</i>
+                    <i class="el-icon-user" style="color: white">&#xe612;</i>
                   </template>
                 </el-input>
               </el-form-item>
@@ -36,7 +36,7 @@
                   type="password"
                 >
                   <template #prefix>
-                    <i class="el-icon-lock">&#xe612;</i>
+                    <i class="el-icon-lock" style="color: white">&#xe612;</i>
                   </template>
                 </el-input>
               </el-form-item>

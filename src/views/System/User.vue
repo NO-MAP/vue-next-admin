@@ -11,19 +11,14 @@
       placeholder="输入邮箱"
       v-model="tableQuery.email"
     ></el-input>
-    <el-button
-      style="margin-right: 10px"
-      type="primary"
-      icon="el-icon-search"
-      @click="getTableData"
+    <el-button type="primary" icon="el-icon-search" @click="getTableData"
       >搜索</el-button
     >
-    <el-button
-      style="margin-right: 10px"
-      type="primary"
-      icon="el-icon-refresh"
-      @click="refreshQuery"
+    <el-button type="primary" icon="el-icon-refresh" @click="refreshQuery"
       >刷新</el-button
+    >
+    <el-button type="primary" icon="el-icon-plus" @click="addHandle"
+      >新增</el-button
     >
   </div>
   <div class="content">
@@ -75,13 +70,15 @@
         </template>
       </el-table-column>
       <el-table-column width="150" fixed="right" align="center">
-        <el-button @click="viewHandle(scope.row)" type="text">查看</el-button>
-        <el-button @click="editHandle(scope.row)" type="text">编辑</el-button>
-        <el-popconfirm title="确定删除吗？" @confirm="delHandle(scope.row)">
-          <template #reference>
-            <el-button type="text" class="danger">删除</el-button>
-          </template>
-        </el-popconfirm>
+        <template v-slot="scope">
+          <el-button @click="viewHandle(scope.row)" type="text">查看</el-button>
+          <el-button @click="editHandle(scope.row)" type="text">编辑</el-button>
+          <el-popconfirm title="确定删除吗？" @confirm="delHandle(scope.row)">
+            <template #reference>
+              <el-button type="text" class="danger">删除</el-button>
+            </template>
+          </el-popconfirm>
+        </template>
       </el-table-column>
     </el-table>
   </div>
@@ -96,16 +93,22 @@
       layout="prev, pager, next, total, jumper, sizes"
     ></el-pagination>
   </div>
+  <UserDialog @done="getTableData" ref="UserDialog" />
 </template>
 
 <script>
 import { SWR, useSWR } from "@/hooks/useSWR";
-import { defineComponent, reactive } from "vue";
-import { getUserPage } from "@/api/user";
+import { defineComponent, reactive, ref } from "vue";
+import { getUserPage, delUser } from "@/api/user";
+
+import UserDialog from "./components/userDialog";
 
 export default defineComponent({
   name: "SystemUser",
+  components: { UserDialog },
   setup() {
+    const UserDialog = ref(null);
+
     const tableData = SWR({
       records: [],
       total: 0,
@@ -138,9 +141,43 @@ export default defineComponent({
       getTableData();
     };
 
-    const viewHandle = () => {};
-    const editHandle = () => {};
-    const delHandle = () => {};
+    const viewHandle = (row) => {
+      const data = {
+        ...row,
+        roles: row.roles.map((item) => item.id),
+      };
+      const _UserDialog = UserDialog.value;
+      _UserDialog.setStatus("view");
+      _UserDialog.setForm(data);
+      _UserDialog.show();
+    };
+    const editHandle = (row) => {
+      const data = {
+        ...row,
+        roles: row.roles.map((item) => item.id),
+      };
+      const _UserDialog = UserDialog.value;
+      _UserDialog.setStatus("edit");
+      _UserDialog.setForm(data);
+      _UserDialog.show();
+    };
+    const delHandle = async (row) => {
+      const id = row.id;
+      await delUser(id);
+      getTableData();
+    };
+
+    const addHandle = () => {
+      const data = {
+        userName: "",
+        email: "",
+        roles: [],
+      };
+      const _UserDialog = UserDialog.value;
+      _UserDialog.setStatus("add");
+      _UserDialog.setForm(data);
+      _UserDialog.show();
+    };
 
     getTableData();
 
@@ -152,6 +189,8 @@ export default defineComponent({
       viewHandle,
       editHandle,
       delHandle,
+      addHandle,
+      UserDialog,
     };
   },
 });

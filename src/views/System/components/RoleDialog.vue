@@ -11,7 +11,7 @@
       :disabled="status == 'view'"
       ref="formRef"
       label-position="left"
-      label-width="80px"
+      label-width="90px"
       :model="form"
       :rules="rules"
       label-suffix=":"
@@ -62,7 +62,14 @@ export default defineComponent({
       roleCode: "",
       description: "",
     });
-    const rules = [];
+    const rules = {
+      roleName: [
+        { required: true, message: "请输入角色名称", trigger: "blur" },
+      ],
+      roleCode: [
+        { required: true, message: "请输入角色代码", trigger: "blur" },
+      ],
+    };
 
     const show = () => {
       flag.value = true;
@@ -108,21 +115,28 @@ export default defineComponent({
 
     const confirmData = SWR();
 
-    const confirm = async () => {
-      const { id, roleName, roleCode, description } = form;
-      if (status.value == "add") {
-        await useSWR(addRole({ roleName, roleCode, description }), confirmData);
-      }
-      if (status.value == "edit") {
-        await useSWR(
-          editRole({ id, roleName, roleCode, description }),
-          confirmData
-        );
-      }
-      if (confirmData.success) {
-        emit("done");
-        flag.value = false;
-      }
+    const confirm = () => {
+      formRef.value.validate(async (valid) => {
+        if (valid) {
+          const { id, roleName, roleCode, description } = form;
+          if (status.value == "add") {
+            await useSWR(
+              addRole({ roleName, roleCode, description }),
+              confirmData
+            );
+          }
+          if (status.value == "edit") {
+            await useSWR(
+              editRole({ id, roleName, roleCode, description }),
+              confirmData
+            );
+          }
+          if (confirmData.success) {
+            emit("done");
+            flag.value = false;
+          }
+        }
+      });
     };
 
     return {
